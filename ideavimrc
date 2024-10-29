@@ -1,28 +1,53 @@
-
+"<c-s-;> :start actjump
+"""""""""""""""""""""""""""""""""""
+" <c-m> minimize the current window
+""""""""""""""""""""""""""""""""""""""""""""""""
+"qa            : record keystrokes to register a
+"your commands
+"q             : quit recording
+"@a            : execute commands again
+"@@            : repeat
+"""""""""""""""""""""""""""""""""""""180
+"<c-x> in normal mode to subtract from the current number
+""""""""""""""""""""""""""""""""""""""
+":reg display contents of all registers
+"1p      : paste from register 1
+"<C-r>0 paste the content of the register 0
+"procticcal Vim, by Drew Neil
+"Read Drew Neil's book,
+""""""""""""""""""""""""""""""""""""""
+"insert mode
+"<C-r> = 7*22 <CR>  = 154 : insert 154
+""""""""""""""""""""""""""""""""""""""
 " gi got to the last place you left insert mode
+""""""""""""""""""""""""""""""""""""""""""""""""
 "" Base Settings
 "" ========================================================
-"--设置返回normal模式时回到英文输入法
-"set keep-english-in-normal
-"执行命令后，默认居中
-set scrolloff=10
-set nu
-set linenumber
-set multiple-cursors
-set relativenumber
-set textobj-entire
-set argtextobj
-set history=3000000
-set ideastatusicon=gray
-"That is, such as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
-let g:argumentobject_force_toplevel = 1
-let g:argtextobj_pairs="[:],(:),<:>"
-"按esc顺便取消高亮
-nnoremap <esc> <esc>:noh<return>
-set smartcase
-set visualbell
-set showmode
-set showcmd
+"command mode
+" moving a set of Lines with the :m command
+" '<,>'m29<CR>
+" '<,>'normal I//  : add // to beginning range of lines
+" '<,>'normal A//  : add // to ending range of lines
+""""""""""""""
+
+set scrollo"ff=10
+set nu     "
+set linenum"ber
+set multipl"e-cursors
+set relativ"enumber
+set textobj"-entire
+set argtext"obj
+set history"=3000000
+set ideasta"tusicon=gray
+"That is, s"uch as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
+let g:argum"entobject_force_toplevel = 1
+let g:argte"xtobj_pairs="[:],(:),<:>"
+"按esc顺便取消高亮"
+nnoremap <e"sc> <esc>:noh<return>
+set smartca"se
+set visualb"ell
+set showmod"e
+set showcmd"
 set ignorecase
 set hlsearch
 set incsearch
@@ -173,8 +198,6 @@ vmap <leader>dd "+d
 "Easy visual indentation
 vnoremap < <gv
 vnoremap > >gv
-"Execute macro saved in 'q' register
-nnoremap qj @q
 "Popup navigation
 inoremap <C-j> <Action>(PopupMenu-selectNext)
 inoremap <C-k> <Action>(PopupMenu-selectPrev)
@@ -429,7 +452,6 @@ nmap zc <action>(ExpandRegion)
 "关闭其他标签页
 let g:WhichKeyDesc_CodeAndClose_CloseAllEditorsButActive = "zq 关闭其他标签页"
 nmap zq <action>(CloseAllEditorsButActive)
-nmap qq <action>(CloseAllEditorsButActive)
 "向右拆分标签页
 let g:WhichKeyDesc_Windows_Move_MoveTabRight = "zr 向右拆分标签页"
 nmap zr <action>(MoveTabRight)
@@ -596,10 +618,11 @@ nmap == <action>(ReformatCode)
 nmap `` <action>(FileStructurePopup)
 " add bookmark
 nmap `1 <action>(ToggleBookmark)
+nmap <c-m> <action>(ToggleBookmark)
 nmap <tab>q <Action>(GotoImplementation)
 map <leader>nb :NERDTreeFromBookmark
 function! Invert(calledFromVisual)
-  let antonyms = ['true', 'false', 'enable', 'disable', 'show', 'hide', 'open', 'close', 'start', 'stop', 'begin', 'end', 'lock', 'unlock', 'expand', 'collapse', 'increase', 'decrease', 'increment', 'decrement', 'connect', 'disconnect', 'mount', 'unmount', 'press', 'release', 'accept', 'reject', 'add', 'remove', 'insert', 'delete', 'create', 'destroy', 'load', 'unload', 'on', 'off', 'up', 'down', 'visible', 'invisible', 'fixed', 'flexible', 'light', 'dark', 'next', 'previous', 'forward', 'backward', 'allow', 'deny', 'enabled', 'disabled', 'positive', 'negative', 'ascending', 'descending', 'valid', 'invalid', 'synchronous', 'asynchronous', 'active', 'inactive', 'serialize', 'deserialize', 'compress', 'decompress', 'encrypt', 'decrypt', 'expand', 'contract', 'zoomin', 'zoom-out', 'push', 'pull', 'flash', 'steady', 'manual', 'automatic','True', 'False', 'Enable', 'Disable', 'Show', 'Hide', 'Open', 'Close', 'Start', 'Stop', 'Begin', 'End', 'Lock', 'Unlock', 'Expand', 'Collapse', 'Increase', 'Decrease', 'Increment', 'Decrement', 'Connect', 'Disconnect', 'Mount', 'Unmount', 'Press', 'Release', 'Accept', 'Reject', 'Add', 'Remove', 'Insert', 'Delete', 'Create', 'Destroy', 'Load', 'Unload', 'On', 'Off', 'Up', 'Down', 'Visible', 'Invisible', 'Fixed', 'Flexible', 'Light', 'Dark', 'Next', 'Previous', 'Forward', 'Backward', 'Allow', 'Deny', 'Enabled', 'Disabled', 'Positive', 'Negative', 'Ascending', 'Descending', 'Valid', 'Invalid', 'Synchronous', 'Asynchronous', 'Active', 'Inactive', 'Serialize', 'Deserialize', 'Compress', 'Decompress', 'Encrypt', 'Decrypt', 'Expand', 'Collapse', 'Zoomin', 'Zoomout', 'Push', 'Pull', 'Flash', 'Steady', 'Manual', 'Automatic']
+  let antonyms = ['true', 'false', 'enable', 'disable', 'show', 'hide', 'open', 'close', 'start', 'stop', 'begin', 'end', 'lock', 'unlock', 'expand', 'collapse', 'increase', 'decrease', 'increment', 'decrement', 'connect', 'disconnect', 'mount', 'unmount', 'press', 'release', 'accept', 'reject', 'add', 'remove', 'insert', 'delete', 'create', 'destroy', 'load', 'unload', 'on', 'off', 'up', 'down', 'visible', 'invisible', 'fixed', 'flexible', 'light', 'dark', 'next', 'previous', 'forward', 'backward', 'allow', 'deny', 'enabled', 'disabled', 'positive', 'negative', 'ascending', 'descending', 'valid', 'invalid', 'synchronous', 'asynchronous', 'active', 'inactive', 'serialize', 'deserialize', 'compress', 'decompress', 'encrypt', 'decrypt', 'expand', 'contract', 'zoomin', 'zoom-out', 'push', 'pull', 'flash', 'steady', 'manual', 'automatic','True', 'False', 'Enable', 'Disable', 'Show', 'Hide', 'Open', 'Close', 'Start', 'Stop', 'Begin', 'End', 'Lock', 'Unlock', 'Expand', 'Collapse', 'Increase', 'Decrease', 'Increment', 'Decrement', 'Connect', 'Disconnect', 'Mount', 'Unmount', 'Press', 'Release', 'Accept', 'Reject', 'Add', 'Remove', 'Insert', 'Delete', 'Create', 'Destroy', 'Load', 'Unload', 'On', 'Off', 'Up', 'Down', 'Visible', 'Invisible', 'Fixed', 'Flexible', 'Light', 'Dark', 'Next', 'Previous', 'Forward', 'Backward', 'Allow', 'Deny', 'Enabled', 'Disabled', 'Positive', 'Negative', 'Ascending', 'Descending', 'Valid', 'Invalid', 'Synchronous', 'Asynchronous', 'Active', 'Inactive', 'Serialize', 'Deserialize', 'Compress', 'Decompress', 'Encrypt', 'Decrypt', 'Expand', 'Collapse', 'Zoomin', 'Zoomout', 'Push', 'Pull', 'Flash', 'Steady', 'Manual', 'Automatic','last','first','Last','First']
   if a:calledFromVisual
     normal gv"wy
   else
@@ -739,9 +762,6 @@ let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
 :map <leader>cl <Action>(CommentByLineComment)
 :map <leader>cb <Action>(CommentByBlockComment)
 
-" ace
-:map ff <Action>(AceAction)
-:map fv <Action>(AceTargetAction)
 " copy whole file
 nmap <C-a> ggVG"+y
 " built-in navigation to navigated items works better
@@ -787,3 +807,9 @@ nnoremap <leader>8 :call WhichKeyToggle()<CR>
 
 " source
 :map <leader>9 <Action>(IdeaVim.ReloadVimRc.reload)
+noremap <UP> <nop>
+noremap <DOWN> <nop>
+noremap <LEFT> gT
+noremap <RIGHT> gt
+nmap <c-;> :action AceLineAction<CR>
+nmap <c-a-;> :action AceTargetAction<CR>
