@@ -180,7 +180,6 @@ let g:WhichKeyDesc_git_status = "<leader>gs Open Git status dialog"
 let g:WhichKeyDesc_git_branches = "<leader>gb Open Git branches list"
 let g:WhichKeyDesc_errors = "<leader>e Error navigation"
 let g:WhichKeyDesc_errors_next = "<leader>en Go to next error in solution"
-let g:WhichKeyDesc_errors_prev = "<leader>ep Go to previous error in solution"
 "================================================================================================
 "🌍🌍🌍 No Leader Keymaps 🌍🌍🌍
 "================================================================================================
@@ -317,9 +316,6 @@ nmap <leader>gb <Action>(Forward)
 map <leader>gc <Action>(CheckinProject)
 map <leader>gs <Action>(ActivateVersionControlToolWindow)
 map <leader>gb <Action>(Git.Branches)
-"Errors
-"跳转到下一个错误或警告
-nmap ge <action>(GotoNextError)
 map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
 map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
 set ReplaceWithRegister
@@ -685,8 +681,6 @@ vnoremap ++ :NERDTreeFind<CR>
 nnoremap ++ :NERDTreeFind<CR>
 vnoremap gf :NERDTreeFind<CR>
 nnoremap gf :NERDTreeFind<CR>
-nnoremap 00 :action ToggleZenMode<CR>
-vnoremap 00 :action ToggleZenMode<CR>
 nmap \\\\ :action GotoImplementation<CR>
 "shift zz  是关闭现在的窗口
 nmap <BS> :action JumpToLastChange<CR>
@@ -739,8 +733,8 @@ vnoremap N Nzz
 " easy window navigation
 nnoremap <a-k> gT
 nnoremap <a-j> gt
-nnoremap <c-s-tab> gT
-nnoremap <c-tab> gt
+nnoremap <c-s-tab> :action PreviousTab<CR>
+nnoremap <c-tab> :action NextTab<CR>
 " stuff
 :map <leader>er <Action>(QuickJavaDoc)
 :map <leader>ee <Action>(ShowErrorDescription)
@@ -812,8 +806,8 @@ nnoremap <leader>8 :call WhichKeyToggle()<CR>
 :map <leader>9 <Action>(IdeaVim.ReloadVimRc.reload)
 noremap <UP> <nop>
 noremap <DOWN> <nop>
-noremap <LEFT> gT
-noremap <RIGHT> gt
+noremap <LEFT> :action PreviousTab<CR>
+noremap <RIGHT> :action NextTab<CR>
 "nmap <c-;> :action AceLineAction<CR>
 "nmap <c-a-;> :action AceTargetAction<CR>
 "nmap <c-s-;> :action AceTargetAction<CR>
@@ -828,3 +822,19 @@ nnoremap <c-i> :action Forward<cr>
 " but preserve ideavim defaults
 nnoremap g<c-o> <c-o>
 nnoremap g<c-i> <c-i>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" gotos
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action ReSharperGotoNextErrorInSolution<CR>
+nnoremap gu :action FindUsages<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap go :action GotoOverride<CR>
+nnoremap <s-TAB> :action PreviousTab<CR> 
+nnoremap <TAB> :action NextTab<CR> 
+nnoremap gs :action Switcher<CR>
+nnoremap gr :action RecentFiles<CR>
+nnoremap gb :action JumpToLastChange<CR>
+nnoremap gn :action VcsShowNextChangeMarker<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <s-9> 0
+nnoremap <s-0> $
