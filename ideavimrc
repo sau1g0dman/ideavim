@@ -1,7 +1,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "ACEJUMP
-
-"<c-s-;> :start actjump
+"Press the keyboard shortcut for AceAction (Ctrl+; by default) to activate AceJump,Press the AceJump shortcut a second time to activate Declaration Mode, which is equivalent to the Navigate To action in the IDE. Press the AceJump shortcut three times before completing a tag to activate Target Mode. Once Target Mode is activated, jumping to a tag will select an entire word
+"<c-s-;> :AceJump shortcut for Line Mode(Ctrl+Shift+; by default), to target the beginning, first non-whitespace, and last character of every line in the editor). Then jump to one by completing the tag.
+"<c-a-;>: Target Mode can also be activated directly by pressing the shortcut for AceTargetAction (Ctrl+Alt+; by default).
 """""""""""""""""""""""""""""""""""
 " <c-m> minimize the current window
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -10,10 +11,10 @@
 "q             : quit recording
 "@a            : execute commands again
 "@@            : repeat
-"""""""""""""""""""""""""""""""""""""180
+""""""""""""""""""""""""""""""""""""180
 "<c-x> in normal mode to subtract from the current number
 """"""""""""""""""""""""""""""""""""""
-":reg display contents of all registers
+":reg display contents of allkregisters
 "1p      : paste from register 1
 "<C-r>0 paste the content of the register 0
 "procticcal Vim, by Drew Neil
@@ -35,15 +36,15 @@
 
 set scrolloff=10
 set nu
-set linenumber
 set multiple-cursors
+set linenumber
 set relativenumber
 set textobj-entire
 set argtextobj
 set history=3000000
 set ideastatusicon=gray
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"That is, s"uch as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"That is, such as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:argumentobject_force_toplevel = 1
 let g:argtextobj_pairs="[:],(:),<:>"
@@ -163,7 +164,7 @@ nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
 
 "--在普通和插入模式下，向下交换行/向上交换行
-nnoremap <C-j> :m +1<CR>    
+nnoremap <C-j> :m +1<CR>
 nnoremap <C-k> :m -2<CR>
 inoremap <C-j> <Esc> :m +1<CR>gi
 inoremap <C-k> <Esc> :m -2<CR>gi
@@ -215,6 +216,7 @@ inoremap <C-k> <Action>(PopupMenu-selectPrev)
 "================================================================================================
 "let g:WhichKeyDesc_easymotionkey = "<leader><leader> 快速跳转插件"
 nmap s <Plug>(easymotion-s2)
+nmap S <Action>(AceBackwardAction)
 let g:WhichKeyDesc_easymotion = "s 快速跳转"
 "================================================================================================
 "🌸🌸🌸 NERDTree 🌸🌸🌸
@@ -816,5 +818,6 @@ noremap <UP> <nop>
 noremap <DOWN> <nop>
 noremap <LEFT> gT
 noremap <RIGHT> gt
-nmap <c-;> :action AceLineAction<CR>
-nmap <c-a-;> :action AceTargetAction<CR>
+"nmap <c-;> :action AceLineAction<CR>
+"nmap <c-a-;> :action AceTargetAction<CR>
+"nmap <c-s-;> :action AceTargetAction<CR>
