@@ -1,3 +1,6 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ACEJUMP
+
 "<c-s-;> :start actjump
 """""""""""""""""""""""""""""""""""
 " <c-m> minimize the current window
@@ -16,19 +19,19 @@
 "procticcal Vim, by Drew Neil
 "Read Drew Neil's book,
 """"""""""""""""""""""""""""""""""""""
-"insert mode
+"INSERT MODE
 "<C-r> = 7*22 <CR>  = 154 : insert 154
 """"""""""""""""""""""""""""""""""""""
 " gi got to the last place you left insert mode
 """"""""""""""""""""""""""""""""""""""""""""""""
-"" Base Settings
+"" BASE SETTINGS
 "" ========================================================
-"command mode
+"COMMAND MODE
 " moving a set of Lines with the :m command
 " '<,>'m29<CR>
 " '<,>'normal I//  : add // to beginning range of lines
 " '<,>'normal A//  : add // to ending range of lines
-""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set scrolloff=10
 set nu
@@ -39,15 +42,17 @@ set textobj-entire
 set argtextobj
 set history=3000000
 set ideastatusicon=gray
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "That is, s"uch as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
-let g:argum"entobject_force_toplevel = 1
-let g:argte"xtobj_pairs="[:],(:),<:>"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:argumentobject_force_toplevel = 1
+let g:argtextobj_pairs="[:],(:),<:>"
 "按esc顺便取消高亮"
-nnoremap <e"sc> <esc>:noh<return>
-set smartca"se
-set visualb"ell
-set showmod"e
-set showcmd"
+nnoremap <esc> <esc>:noh<return>
+set smartcase
+set visualbell
+set showmode
+set showcmd
 set ignorecase
 set hlsearch
 set incsearch
@@ -158,7 +163,7 @@ nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
 
 "--在普通和插入模式下，向下交换行/向上交换行
-nnoremap <C-j> :m +1<CR>
+nnoremap <C-j> :m +1<CR>    
 nnoremap <C-k> :m -2<CR>
 inoremap <C-j> <Esc> :m +1<CR>gi
 inoremap <C-k> <Esc> :m -2<CR>gi
