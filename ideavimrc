@@ -30,15 +30,15 @@
 " '<,>'normal A//  : add // to ending range of lines
 """"""""""""""
 
-set scrollo"ff=10
-set nu     "
-set linenum"ber
-set multipl"e-cursors
-set relativ"enumber
-set textobj"-entire
-set argtext"obj
-set history"=3000000
-set ideasta"tusicon=gray
+set scrolloff=10
+set nu
+set linenumber
+set multiple-cursors
+set relativenumber
+set textobj-entire
+set argtextobj
+set history=3000000
+set ideastatusicon=gray
 "That is, s"uch as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
 let g:argum"entobject_force_toplevel = 1
 let g:argte"xtobj_pairs="[:],(:),<:>"
@@ -412,8 +412,8 @@ nmap <Leader>gg <Action>(ActivateCommitToolWindow)
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
 "将Ctrl + s 映射为保存文档(也可以在VIM设置里将此快捷键设置为IDEA的快捷键)
-nmap <C-S> <action>(SaveAll)
-imap <C-S> <Esc><action>(SaveAll)
+"nmap <C-S> <action>(SaveAll)
+"imap <C-S> <Esc><action>(SaveAll)
 "e: Extract
 "extract method/function 将选中的代码片段提取为一个独立的方法(Ctrl + Alt + M)
 vmap <leader>em <action>(ExtractMethod)
@@ -763,7 +763,7 @@ let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
 :map <leader>cb <Action>(CommentByBlockComment)
 
 " copy whole file
-nmap <C-a> ggVG"+y
+"nmap <C-a> ggVG"+y
 " built-in navigation to navigated items works better
 ":nmap <c-o> <Action>(Back)
 ":nmap <c-i> <Action>(Forward)
