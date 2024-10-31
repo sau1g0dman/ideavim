@@ -1,4 +1,13 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"🌸🌸🌸 NERDTree 🌸🌸🌸
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"在目录中，按下 go 打开文件并保持光标在目录
+"在目录中，按下 gi 以上下并排窗口形式打开文件(并关闭目录)
+"在目录树中，使用空格预览文件
+"光标在目录时，按Esc回到编辑器
+"编辑器和目录间切换存在许多功能类似的快捷键，相似但不完全相同
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "COMMAND MODE
 """""""""""""
 " Moving a set of lines using the :m command
@@ -13,6 +22,7 @@
 " :t6.             : copy the line where the cursor is located to line 6
 " :t.              : copy the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
 " :m.              : move the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
+" leader. :repeat the last command
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -140,7 +150,7 @@ let mapleader = " "
 set scrolloff=10
 set nu
 set linenumber
-set relativenumber
+"set relativenumber
 set ignorecase
 set showcmd
 set showmode
@@ -168,6 +178,7 @@ set nerdtree
 set surround
 set exchange
 set ideajoin
+set ReplaceWithRegister
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -227,8 +238,36 @@ set which-key
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_FontSize = 16
+let g:WhichKeyDesc_surround_y = "y 增加tag surround插件"
+let g:WhichKeyDesc_surround_ys = "ys 用于surround插件"
+let g:WhichKeyDesc_surround_ysi = "ysi 用于surround插件"
+let g:WhichKeyDesc_surround_yss = "yss 用于surround插件"
+let g:WhichKeyDesc_surround_ysiw = "ysiw 用于surround插件"
+let g:WhichKeyDesc_surround_yssb = "yssb 用于surround插件"
+let g:WhichKeyDesc_surround_c = "c 用于surround插件"
+let g:WhichKeyDesc_surround_cs = "cs 更改 surround插件"
+let g:WhichKeyDesc_surround_cst = "cst 更改tag surround插件"
+let g:WhichKeyDesc_surround_d = "d 用于surround插件"
+let g:WhichKeyDesc_surround_ds = "ds 删除 surround插件"
+let g:WhichKeyDesc_bookmarks = "<leader>b Bookmarks"
+let g:WhichKeyDesc_bookmarks_menu = "<leader>bm Bookmark Menu"
+let g:WhichKeyDesc_bookmarks_show = "<leader>bs Show Bookmarks"
+let g:WhichKeyDesc_bookmarks_tool = "<leader>bt Bookmark Tool"
+let g:WhichKeyDesc_bookmarks_toggle_bookmark = "<leader>bb Toggle Bookmark"
+let g:WhichKeyDesc_bookmarks_edit = "<leader>be Edit Bookmark"
+let g:WhichKeyDesc_bookmarks_prev = "<leader>bp Previous Bookmark"
+let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
 let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKeyDesc_NERDTreeOrNew = "<leader>n 目录树&新建"
+let g:WhichKeyDesc_NERDTreeOrNew_NewDir = "<leader>nd 新建文件夹"
+let g:WhichKeyDesc_NERDTreeOrNew_NewFile = "<leader>nf 新建文件"
+let g:WhichKeyDesc_NERDTreeOrNew_NewClass = "<leader>nc 新建scratch文件"
 let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKeyDesc_GotoTest = "gt 在源代码和测试代码之间快速切换"
+let g:WhichKeyDesc_bookmark = "mm 书签"
+"显示书签（Bookmarks）工具窗口，其中包含当前文件中设置的书签列表(Ctrl + F11)
+let g:WhichKeyDesc_Show_Bookmarks = "<leader>bm 显示书签工具窗口"
+let g:WhichKeyDesc_Show_Bookmarks = "<leader>bb 显示书签工具窗口"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "CONFIGURATIONS
@@ -237,6 +276,14 @@ let g:WhichKeyDesc_leader = "<leader> Leader key"
 let g:WhichKeyDesc_leader_leader = "<leader><leader> Leader leader key"
 let g:WhichKeyDesc_MethodUp = "gm 将光标移动到上一个方法的声明处"
 let g:WhichKeyDesc_easymotion = "s 快速跳转"
+let g:WhichKeyDesc_CodeAndClose = "<leader>c Code&关闭"
+let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca 关闭所有标签页"
+let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc 代码自动补全"
+let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>cd 关闭当前标签页"
+let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft 查找字符"
+let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>ll 定位文件位置"
+let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc 打开查找菜单"
+let g:WhichKeyDesc_FindOrFormat_Format = "<leader>ff 格式化代码"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -254,15 +301,23 @@ inoremap <C-k> <Esc> :m -2<CR>gi
 xnoremap <C-j> :m '>+1<cr>gv=gv
 xnoremap <C-k> :m '<-2<cr>gv=gv
 
-"remap <home> to ^
-nmap <Home> ^
-imap <Home> ^
-
 "Pane navigation
 nnoremap <A-h> <C-w>h
 nnoremap <A-l> <C-w>l
 nnoremap <A-k> <C-w>k
 nnoremap <A-j> <C-w>j
+nnoremap <TAB> :action NextTab<CR>
+nnoremap <s-TAB> :action PreviousTab<CR>
+
+nmap <Home> ^
+imap <Home> ^
+
+nmap H h
+nmap L l
+
+"Easy visual indentation
+vnoremap < <gv
+vnoremap > >gv
 
 "Jump between methods
 nnoremap [[ :action MethodUp<cr>
@@ -271,100 +326,32 @@ nnoremap ]] :action MethodDown<cr>
 "将光标移动到上一个方法的声明处
 nmap gm <action>(MethodUp)
 
-"Easy visual indentation
-vnoremap < <gv
-vnoremap > >gv
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "🌸🌸🌸 Easymotion 🌸🌸🌸
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap s <Plug>(easymotion-s2)
 nmap S <Action>(AceBackwardAction)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"🌸🌸🌸 NERDTree 🌸🌸🌸
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"在目录中，按下 go 打开文件并保持光标在目录
-"在目录中，按下 gi 以上下并排窗口形式打开文件(并关闭目录)
-"在目录树中，使用空格预览文件
-"光标在目录时，按Esc回到编辑器
-"编辑器和目录间切换存在许多功能类似的快捷键，相似但不完全相同
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:WhichKeyDesc_CodeAndClose = "<leader>c Code&关闭"
-"关闭所有标签页
-let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca 关闭所有标签页"
 nmap <leader>ca <action>(CloseAllEditors)
-"关闭当前标签页
-let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>cd 关闭当前标签页"
 nmap <leader>cd :action CloseEditor<CR>
-"代码自动补全
-let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc 代码自动补全"
 nmap <leader>cc <action>(CodeCompletion)
 
-"按下 <leader>nn 将使焦点转移到 NERDTree 窗口
-nnoremap <leader>nn :NERDTreeFind<CR>
-let g:WhichKeyDesc_NERDTreeOrNo_NERDTreeFind = "<leader>nn 跳转到当前文件在目录树中的位置"
-"Open NERDTree (use q to exit)
-map <leader>x :NERDTreeToggle<CR>
-"按下 <C-n> 将打开 NERDTree 文件资源管理器(==<leader>nn
-"nnoremap <C-n> :NERDTree<CR>
-"按下 <C-t> 将切换 NERDTree 文件资源管理器的显示状态，即打开或关闭 NERDTree(不建议)
-nnoremap <C-t> :NERDTreeToggle<CR>
-"按下 <leader>nl 将跳转到当前文件在 NERDTree 文件资源管理器中的位置
-map <leader>nl :NERDTreeFind<CR>
-let g:WhichKeyDesc_NERDTreeOrNo_NERDTreeFind = "<leader>nl 跳转到当前文件在目录树中的位置"
 "Display options
-map <leader>dd <action>(ToggleDistractionFreeMode)
-map <leader>dz <action>(ToggleZenMode)
-map <leader>df <action>(ToggleFullScreen)
+nmap <leader>dd <action>(ToggleDistractionFreeMode)
+nmap <leader>dz <action>(ToggleZenMode)
+nmap <leader>df <action>(ToggleFullScreen)
 
-"Actions
-map <leader>am <action>(ShowIntentionActions)
-map <leader>as <action>(SearchEverywhere)
-"File navigation
-"快速 导航/查找 项目中的其他文件(Ctrl + n)
-"let g:WhichKeyDesc_FindOrFormat_FindFile = "<leader>ff 查找文件"
-"nmap <leader>ff <action>(GotoFile)
-"将当前编辑的文件在项目视图中进行选中定位(Alt + F1)
-"在整个项目中查找指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等(Ctrl + Shift + F)
-let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft 查找字符"
-nmap <leader>ft <action>(FindInPath)
-let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>ll 定位文件位置"
-"打开 "Find Action"（查找动作）对话框(Ctrl + Shift + A)
-let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc 打开查找菜单"
-"重新格式化代码，使其符合预定义的代码样式和规范 | 优化导入语句，删除未使用的导入，并将导入语句按字母顺序进行排列
-let g:WhichKeyDesc_FindOrFormat_Format = "<leader>ff 格式化代码"
-nmap <leader>ff <action>(ReformatCode) | <action>(OptimizeImports)
-nmap <leader>fc <action>(GotoAction)
-nmap <leader>fl <action>(SelectInProjectView)
-map <leader>fr <action>(RecentFiles)
-"map <leader><leader> <Action>(RecentFiles)
-map <leader>ll <action>(RecentLocations)
-"Close active tab
-map <leader>q <action>(CloseContent)
-"Go to code
-nmap <leader>gd <Action>(GotoDeclaration)
-nmap <leader>gy <Action>(GotoTypeDeclaration)
-nmap <leader>gi <Action>(GotoImplementation)
-nmap <leader>gu <Action>(ShowUsages)
-nmap <leader>gt <Action>(GotoTest)
-nmap <leader>gf <Action>(Back)
-nmap <leader>gb <Action>(Forward)
-"Git windows
-map <leader>gc <Action>(CheckinProject)
-map <leader>gs <Action>(ActivateVersionControlToolWindow)
-map <leader>gb <Action>(Git.Branches)
-map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
-map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
-set ReplaceWithRegister
-"内置搜索优化
-nnoremap g/ :action Find<cr>
-map H h
-map L l
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"CHARACTER MANIPULATION
+"""""""""""""""""""""""
 "Toggle case and start typing. E.g. <leader>iget: property -> getProperty
-map <leader>i ~hi
-map <leader>J Ji <ESC>
+nmap <leader>i ~hi
+nmap <leader>J Ji <ESC>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"COPY AND PASTE AND REPLACE
+"""""""""""""""
 "Yank to the last character of the Line
 nnoremap Y yg_
 "gR replace 当前字符到行尾
@@ -373,76 +360,18 @@ nnoremap y_ y^
 "删除 从光标到行首
 nnoremap d_ d^
 nnoremap c_ c^
+
 "重放EX命令
 nnoremap <leader>. @:
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <Leader>sr :%s///gcI<left><left><left><left><left>
 vnoremap sr y:%s///gcI<left><left><left><left><left><C-r>0<right>
 "选中单词后,ss 会快速跳到下一个相同的单词
 vnoremap ss y/<C-r>0<CR>
-"Remove selection and toggle case. E.g. v2l<leader>u: getProperty -> property
-vmap <leader>u d~h
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap U <C-r>
-nmap <leader>t <Action>(ActivateTerminalToolWindow)
-nnoremap <leader>aa :action ShowIntentionActions<CR>
-"在源代码和测试代码之间快速切换
-nmap gt <action>(GotoTest)
-let g:WhichKeyDesc_GotoTest = "gt 在源代码和测试代码之间快速切换"
-"bookmark 切换书签
-let g:WhichKeyDesc_bookmark = "mm 书签"
-"显示书签（Bookmarks）工具窗口，其中包含当前文件中设置的书签列表(Ctrl + F11)
-let g:WhichKeyDesc_Show_Bookmarks = "<leader>bm 显示书签工具窗口"
-let g:WhichKeyDesc_Show_Bookmarks = "<leader>bb 显示书签工具窗口"
-"nmap <leader>bb <action>(ShowBookmarks)
-nmap `2 <action>(ShowBookmarks)
-nnoremap <leader><enter> :action ShowBookmarks<CR>
-nnoremap <Leader>, :action RecentFiles<CR>
-vnoremap <Leader>, :action RecentFiles<CR>
-nnoremap <leader>ns :action NewScratchFile<CR>
-vnoremap <leader>ns :action NewScratchFile<CR>
-nnoremap <leader>nc :action Scratch.ChangeLanguage<CR>
-vnoremap <leader>nc :action Scratch.ChangeLanguage<CR>
-"VCS
-nnoremap <Leader>gg :action ActivateCommitToolWindow<CR>
-nnoremap <leader>go :action Vcs.QuickListPopupAction<CR>
-nnoremap <leader>gF :action Vcs.UpdateProject<CR>
-nnoremap <leader>ga :action Annotate<CR>
-nnoremap <leader>gl :action Vcs.Show.Log<CR>
-unmap <leader>gs
-nnoremap <leader>gss :action Git.Stash<CR>
-nnoremap <leader>gsu :action Git.Unstash<CR>
-nnoremap <leader>gr :action Vcs.RollbackChangedLines<CR>
-unmap <leader>gf
-nnoremap <leader>gf :action Git.Fetch<CR>
-nnoremap <leader>gf :action Vcs.ShowTabbedFileHistory<CR>
-nnoremap gtt :action GotoTest<CR>
-vnoremap gtt :action GotoTest<CR>
-nnoremap gD :action FindUsages<CR>
-vnoremap gD :action FindUsages<CR>
-nnoremap gtd :action GotoTypeDeclaration<CR>
-vnoremap gtd :action GotoTypeDeclaration<CR>
-nnoremap <Leader>hc :action CallHierarchy<CR>
-"noremap <Leader>in :action Inline<CR>
-nnoremap <leader>mrin    :action Inline<CR>
-vnoremap <leader>mrin    <Esc>:action Inline<CR>
-
-"noremap <Leader>ev :action IntroduceVariable<CR>
-nnoremap <leader>mrev    :action IntroduceVariable<CR>
-vnoremap <leader>mrev    <Esc>:action IntroduceVariable<CR>
-
-"noremap <Leader>ep :action IntroduceParameter<CR>
-nnoremap <leader>mrep    :action IntroduceParameter<CR>
-vnoremap <leader>mrep    <Esc>:action IntroduceParameter<CR>
-
-"noremap <Leader>ec :action IntroduceConstant<CR>
-nnoremap <leader>mrec    :action IntroduceConstant<CR>
-vnoremap <leader>mrec    <Esc>:action IntroduceConstant<CR>
-
-"noremap <Leader>ef :action IntroduceField<CR>
-nnoremap <leader>mref    :action IntroduceField<CR>
-vnoremap <leader>mref    <Esc>:action IntroduceField<CR>
-
-nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
-nmap <Leader>gg <Action>(ActivateCommitToolWindow)
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
 "e: Extract
@@ -507,16 +436,6 @@ nmap za <action>(UnsplitAll)
 let g:WhichKeyDesc_Windows_Unsplit = "zu 取消拆分当前分割窗口"
 nmap zu <action>(Unsplit)
 "关闭提示窗口
-"========== n ==========
-let g:WhichKeyDesc_NERDTreeOrNew = "<leader>n 目录树&新建"
-"在当前目录新建文件夹
-let g:WhichKeyDesc_NERDTreeOrNew_NewDir = "<leader>nd 新建文件夹"
-nmap <leader>nd <action>(NewDir)
-"在当前目录新建文件
-let g:WhichKeyDesc_NERDTreeOrNew_NewFile = "<leader>nf 新建文件"
-nmap <leader>nf <action>(NewFile)
-"在当前目录新建类
-let g:WhichKeyDesc_NERDTreeOrNew_NewClass = "<leader>nc 新建scratch文件"
 
 "====================debug&&run====================================
 let g:WhichKeyDesc_RunOrRe = "<leader>r 运行&重新"
@@ -603,20 +522,6 @@ nmap <leader><leader>N <Plug>(easymotion-vim-N)
 let g:WhichKeyDesc_easymotion_N = "<leader><leader>N easymotion-vim-N"
 nmap <leader><leader>l <Plug>(easymotion-bd-fl)
 let g:WhichKeyDesc_easymotion_L = "<leader><leader>L easymotion-fl"
-"给surround做whichkey的描述
-"<q>hello world!</q>
-"hello world!
-let g:WhichKeyDesc_surround_y = "y 增加tag surround插件"
-let g:WhichKeyDesc_surround_ys = "ys 用于surround插件"
-let g:WhichKeyDesc_surround_ysi = "ysi 用于surround插件"
-let g:WhichKeyDesc_surround_yss = "yss 用于surround插件"
-let g:WhichKeyDesc_surround_ysiw = "ysiw 用于surround插件"
-let g:WhichKeyDesc_surround_yssb = "yssb 用于surround插件"
-let g:WhichKeyDesc_surround_c = "c 用于surround插件"
-let g:WhichKeyDesc_surround_cs = "cs 更改 surround插件"
-let g:WhichKeyDesc_surround_cst = "cst 更改tag surround插件"
-let g:WhichKeyDesc_surround_d = "d 用于surround插件"
-let g:WhichKeyDesc_surround_ds = "ds 删除 surround插件"
 "映射C-H 为ide的替换功能
 nmap <C-H> :action Replace<CR>
 "==============================================
@@ -645,41 +550,11 @@ map <tab><tab> <action>(RecentLocations)
 nmap == <action>(ReformatCode)
 nmap `` <action>(FileStructurePopup)
 " add bookmark
+nmap `2 <action>(ShowBookmarks)
 nmap `1 <action>(ToggleBookmark)
+nnoremap <leader><enter> :action ShowBookmarks<CR>
 nmap <c-m> <action>(ToggleBookmark)
 nmap <tab>q <Action>(GotoImplementation)
-map <leader>nb :NERDTreeFromBookmark
-function! Invert(calledFromVisual)
-  let antonyms = ['true', 'false', 'enable', 'disable', 'show', 'hide', 'open', 'close', 'start', 'stop', 'begin', 'end', 'lock', 'unlock', 'expand', 'collapse', 'increase', 'decrease', 'increment', 'decrement', 'connect', 'disconnect', 'mount', 'unmount', 'press', 'release', 'accept', 'reject', 'add', 'remove', 'insert', 'delete', 'create', 'destroy', 'load', 'unload', 'on', 'off', 'up', 'down', 'visible', 'invisible', 'fixed', 'flexible', 'light', 'dark', 'next', 'previous', 'forward', 'backward', 'allow', 'deny', 'enabled', 'disabled', 'positive', 'negative', 'ascending', 'descending', 'valid', 'invalid', 'synchronous', 'asynchronous', 'active', 'inactive', 'serialize', 'deserialize', 'compress', 'decompress', 'encrypt', 'decrypt', 'expand', 'contract', 'zoomin', 'zoom-out', 'push', 'pull', 'flash', 'steady', 'manual', 'automatic','True', 'False', 'Enable', 'Disable', 'Show', 'Hide', 'Open', 'Close', 'Start', 'Stop', 'Begin', 'End', 'Lock', 'Unlock', 'Expand', 'Collapse', 'Increase', 'Decrease', 'Increment', 'Decrement', 'Connect', 'Disconnect', 'Mount', 'Unmount', 'Press', 'Release', 'Accept', 'Reject', 'Add', 'Remove', 'Insert', 'Delete', 'Create', 'Destroy', 'Load', 'Unload', 'On', 'Off', 'Up', 'Down', 'Visible', 'Invisible', 'Fixed', 'Flexible', 'Light', 'Dark', 'Next', 'Previous', 'Forward', 'Backward', 'Allow', 'Deny', 'Enabled', 'Disabled', 'Positive', 'Negative', 'Ascending', 'Descending', 'Valid', 'Invalid', 'Synchronous', 'Asynchronous', 'Active', 'Inactive', 'Serialize', 'Deserialize', 'Compress', 'Decompress', 'Encrypt', 'Decrypt', 'Expand', 'Collapse', 'Zoomin', 'Zoomout', 'Push', 'Pull', 'Flash', 'Steady', 'Manual', 'Automatic','last','first','Last','First']
-  if a:calledFromVisual
-    normal gv"wy
-  else
-    normal "wyiw
-  endif
-  let wordUnderCaret = @w
-
-  let eraseWord = a:calledFromVisual ? 'gvc' : 'ciw'
-  let count = 0
-  while (count < len(antonyms))
-    if (antonyms[count] ==# wordUnderCaret)
-      let antonym = (count % 2 ==? 0) ? antonyms[count + 1] : antonyms[count - 1]
-      execute 'normal ' .. eraseWord .. antonym
-      break
-    endif
-    let count += 1
-  endwhile
-endfunction
-
-
-nnoremap gX :set opfunc=Redact<CR>g@
-nnoremap gx :set opfunc=function('Redact')<CR>g@
-nnoremap gy :set opfunc={arg -> execute "normal `[v`]rx"}<CR>g@
-function! Redact(type)
-    execute "normal `[v`]rx"
-endfunction
-
-nnoremap ! :call Invert(0)<CR>
-vnoremap ! :<C-u>call Invert(1)<CR>
 
 " CamelCaseMotion approximation (obsolete with WIP proper CamelCaseMotoin plugin)
 " Missing inner word motions e.g. i<leader>w
@@ -757,34 +632,46 @@ nnoremap <a-j> gt
 nnoremap <c-s-tab> :action PreviousTab<CR>
 nnoremap <c-tab> :action NextTab<CR>
 " stuff
-:map <leader>er <Action>(QuickJavaDoc)
-:map <leader>ee <Action>(ShowErrorDescription)
-:map <leader>hh <Action>(QuickImplementations)
-:map <leader>hj <Action>(ShowHoverInfo)
-" breakpoints
-:map <leader>ub <Action>(ToggleLineBreakpoint)
-:map <leader>us <Action>(ViewBreakpoints)
-:map <leader>ur <Action>(Debugger.RemoveAllBreakpoints)
 " bookmarks
 nmap <leader>bs <Action>(ShowBookmarks)
+nmap <leader>nb :NERDTreeFromBookmark
 nmap <leader>bt <Action>(ActivateBookmarksToolWindow)
 nmap <leader>bb <Action>(ToggleBookmark)
 nmap <leader>be <Action>(EditBookmark)
 nmap <leader>bn <Action>(GotoNextBookmark)
-let g:WhichKeyDesc_bookmarks = "<leader>b Bookmarks"
-let g:WhichKeyDesc_bookmarks_menu = "<leader>bm Bookmark Menu"
-let g:WhichKeyDesc_bookmarks_show = "<leader>bs Show Bookmarks"
-let g:WhichKeyDesc_bookmarks_tool = "<leader>bt Bookmark Tool"
-let g:WhichKeyDesc_bookmarks_toggle_bookmark = "<leader>bb Toggle Bookmark"
-let g:WhichKeyDesc_bookmarks_edit = "<leader>be Edit Bookmark"
-let g:WhichKeyDesc_bookmarks_prev = "<leader>bp Previous Bookmark"
-let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
-" comment out
-:map <leader>cl <Action>(CommentByLineComment)
-:map <leader>cb <Action>(CommentByBlockComment)
 
-" copy whole file
-"nmap <C-a> ggVG"+y
+
+noremap <UP> <nop>
+noremap <DOWN> <nop>
+noremap <LEFT> :action PreviousTab<CR>
+noremap <RIGHT> :action NextTab<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Center screen when moving up and down
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+vnoremap <C-u> <C-u>zz
+vnoremap <C-d> <C-d>zz
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+" but preserve ideavim defaults
+nnoremap g<c-o> <c-o>
+nnoremap g<c-i> <c-i>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"nmap <s-9> 0
+"nmap <s-0> $
+nnoremap <esc> <esc>:noh<return>
+nnoremap <leader>nn :NERDTreeFind<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nmap <leader>ft <action>(FindInPath)
+"========== n ==========
+nmap <leader>nd <action>(NewDir)
+nmap <leader>nf <action>(NewFile)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"IDEA SHORTCUTS
+"""""""""""""""
 " reactivate some IDEA shortcuts
 :map <leader>1 <Action>(Run)
 :map <leader>2 <Action>(Debug)
@@ -797,6 +684,102 @@ let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
 " other things
 :map <leader>an <Action>(Annotate)
 :map <leader>tw <Action>(ActivateProjectToolWindow)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:map <leader>er <Action>(QuickJavaDoc)
+:map <leader>ee <Action>(ShowErrorDescription)
+:map <leader>hh <Action>(QuickImplementations)
+:map <leader>hj <Action>(ShowHoverInfo)
+" breakpoints
+:map <leader>ub <Action>(ToggleLineBreakpoint)
+:map <leader>us <Action>(ViewBreakpoints)
+:map <leader>ur <Action>(Debugger.RemoveAllBreakpoints)
+nmap gt <action>(GotoTest)
+"Actions
+nmap <leader>am <action>(ShowIntentionActions)
+nmap <leader>as <action>(SearchEverywhere)
+
+"File navigation
+nmap <leader>fc <action>(GotoAction)
+nmap <leader>ff <action>(ReformatCode) | <action>(OptimizeImports)
+nmap <leader>fl <action>(SelectInProjectView)
+nmap <leader>fr <action>(RecentFiles)
+nmap <leader>ll <action>(RecentLocations)
+
+"Close active tab
+nmap <leader>q <action>(CloseContent)
+nmap <leader>en <Action>(ReSharperGotoNextErrorInSolution)
+nmap <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
+
+"Git windows
+nmap <leader>gb <Action>(Forward)
+nmap <leader>gb <Action>(Git.Branches)
+nmap <leader>gc <Action>(CheckinProject)
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>gf <Action>(Back)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gs <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gt <Action>(GotoTest)
+nmap <leader>gu <Action>(ShowUsages)
+nmap <leader>gy <Action>(GotoTypeDeclaration)
+nnoremap <Leader>gg :action ActivateCommitToolWindow<CR>
+nnoremap <leader>gF :action Vcs.UpdateProject<CR>
+nnoremap <leader>ga :action Annotate<CR>
+nnoremap <leader>gl :action Vcs.Show.Log<CR>
+nnoremap <leader>go :action Vcs.QuickListPopupAction<CR>
+nnoremap <leader>gr :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>gss :action Git.Stash<CR>
+nnoremap <leader>gsu :action Git.Unstash<CR>
+nnoremap gD :action FindUsages<CR>
+nnoremap gE :action ReSharperGotoNextErrorInSolution<CR>
+nnoremap gb :action JumpToLastChange<CR>
+nnoremap ge :action GotoNextError<CR>
+nnoremap gn :action VcsShowNextChangeMarker<CR>
+nnoremap go :action GotoOverride<CR>
+nnoremap gr :action RecentFiles<CR>
+nnoremap gs :action Switcher<CR>
+nnoremap gtd :action GotoTypeDeclaration<CR>
+nnoremap gtt :action GotoTest<CR>
+nnoremap gu :action FindUsages<CR>
+vnoremap gD :action FindUsages<CR>
+vnoremap gtd :action GotoTypeDeclaration<CR>
+vnoremap gtt :action GotoTest<CR>
+unmap <leader>gf
+nnoremap <leader>gf :action Git.Fetch<CR>
+nnoremap <leader>gf :action Vcs.ShowTabbedFileHistory<CR>
+"内置搜索优化
+nnoremap g/ :action Find<cr>
+nmap <leader>t <Action>(ActivateTerminalToolWindow)
+nnoremap <leader>aa :action ShowIntentionActions<CR>
+nnoremap <Leader>, :action RecentFiles<CR>
+vnoremap <Leader>, :action RecentFiles<CR>
+nnoremap <leader>ns :action NewScratchFile<CR>
+vnoremap <leader>ns :action NewScratchFile<CR>
+nnoremap <leader>nc :action Scratch.ChangeLanguage<CR>
+vnoremap <leader>nc :action Scratch.ChangeLanguage<CR>
+
+nnoremap <Leader>hc :action CallHierarchy<CR>
+"noremap <Leader>in :action Inline<CR>
+nnoremap <leader>mrin    :action Inline<CR>
+vnoremap <leader>mrin    <Esc>:action Inline<CR>
+
+"noremap <Leader>ev :action IntroduceVariable<CR>
+nnoremap <leader>mrev    :action IntroduceVariable<CR>
+vnoremap <leader>mrev    <Esc>:action IntroduceVariable<CR>
+
+"noremap <Leader>ep :action IntroduceParameter<CR>
+nnoremap <leader>mrep    :action IntroduceParameter<CR>
+vnoremap <leader>mrep    <Esc>:action IntroduceParameter<CR>
+
+"noremap <Leader>ec :action IntroduceConstant<CR>
+nnoremap <leader>mrec    :action IntroduceConstant<CR>
+vnoremap <leader>mrec    <Esc>:action IntroduceConstant<CR>
+
+"noremap <Leader>ef :action IntroduceField<CR>
+nnoremap <leader>mref    :action IntroduceField<CR>
+vnoremap <leader>mref    <Esc>:action IntroduceField<CR>
+
+nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
 " toggle line number relative
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -824,37 +807,34 @@ nnoremap <leader>8 :call WhichKeyToggle()<CR>
 
 " source
 :map <leader>9 <Action>(IdeaVim.ReloadVimRc.reload)
-noremap <UP> <nop>
-noremap <DOWN> <nop>
-noremap <LEFT> :action PreviousTab<CR>
-noremap <RIGHT> :action NextTab<CR>
-"nmap <c-;> :action AceLineAction<CR>
-"nmap <c-a-;> :action AceTargetAction<CR>
-"nmap <c-s-;> :action AceTargetAction<CR>
-" Center screen when moving up and down
-nnoremap <C-u> <C-u>zz
-nnoremap <C-d> <C-d>zz
-vnoremap <C-u> <C-u>zz
-vnoremap <C-d> <C-d>zz
-" built-in navigation to navigated items works better
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
-" but preserve ideavim defaults
-nnoremap g<c-o> <c-o>
-nnoremap g<c-i> <c-i>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" gotos
-nnoremap ge :action GotoNextError<CR>
-nnoremap gE :action ReSharperGotoNextErrorInSolution<CR>
-nnoremap gu :action FindUsages<CR>
-nnoremap go :action GotoOverride<CR>
-nnoremap <s-TAB> :action PreviousTab<CR>
-nnoremap <TAB> :action NextTab<CR>
-nnoremap gs :action Switcher<CR>
-nnoremap gr :action RecentFiles<CR>
-nnoremap gb :action JumpToLastChange<CR>
-nnoremap gn :action VcsShowNextChangeMarker<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <s-9> 0
-"nmap <s-0> $
-nnoremap <esc> <esc>:noh<return>
+
+function! Invert(calledFromVisual)
+  let antonyms = ['true', 'false', 'enable', 'disable', 'show', 'hide', 'open', 'close', 'start', 'stop', 'begin', 'end', 'lock', 'unlock', 'expand', 'collapse', 'increase', 'decrease', 'increment', 'decrement', 'connect', 'disconnect', 'mount', 'unmount', 'press', 'release', 'accept', 'reject', 'add', 'remove', 'insert', 'delete', 'create', 'destroy', 'load', 'unload', 'on', 'off', 'up', 'down', 'visible', 'invisible', 'fixed', 'flexible', 'light', 'dark', 'next', 'previous', 'forward', 'backward', 'allow', 'deny', 'enabled', 'disabled', 'positive', 'negative', 'ascending', 'descending', 'valid', 'invalid', 'synchronous', 'asynchronous', 'active', 'inactive', 'serialize', 'deserialize', 'compress', 'decompress', 'encrypt', 'decrypt', 'expand', 'contract', 'zoomin', 'zoom-out', 'push', 'pull', 'flash', 'steady', 'manual', 'automatic','True', 'False', 'Enable', 'Disable', 'Show', 'Hide', 'Open', 'Close', 'Start', 'Stop', 'Begin', 'End', 'Lock', 'Unlock', 'Expand', 'Collapse', 'Increase', 'Decrease', 'Increment', 'Decrement', 'Connect', 'Disconnect', 'Mount', 'Unmount', 'Press', 'Release', 'Accept', 'Reject', 'Add', 'Remove', 'Insert', 'Delete', 'Create', 'Destroy', 'Load', 'Unload', 'On', 'Off', 'Up', 'Down', 'Visible', 'Invisible', 'Fixed', 'Flexible', 'Light', 'Dark', 'Next', 'Previous', 'Forward', 'Backward', 'Allow', 'Deny', 'Enabled', 'Disabled', 'Positive', 'Negative', 'Ascending', 'Descending', 'Valid', 'Invalid', 'Synchronous', 'Asynchronous', 'Active', 'Inactive', 'Serialize', 'Deserialize', 'Compress', 'Decompress', 'Encrypt', 'Decrypt', 'Expand', 'Collapse', 'Zoomin', 'Zoomout', 'Push', 'Pull', 'Flash', 'Steady', 'Manual', 'Automatic','last','first','Last','First']
+  if a:calledFromVisual
+    normal gv"wy
+  else
+    normal "wyiw
+  endif
+  let wordUnderCaret = @w
+
+  let eraseWord = a:calledFromVisual ? 'gvc' : 'ciw'
+  let count = 0
+  while (count < len(antonyms))
+    if (antonyms[count] ==# wordUnderCaret)
+      let antonym = (count % 2 ==? 0) ? antonyms[count + 1] : antonyms[count - 1]
+      execute 'normal ' .. eraseWord .. antonym
+      break
+    endif
+    let count += 1
+  endwhile
+endfunction
+
+nnoremap gX :set opfunc=Redact<CR>g@
+nnoremap gx :set opfunc=function('Redact')<CR>g@
+nnoremap gy :set opfunc={arg -> execute "normal `[v`]rx"}<CR>g@
+function! Redact(type)
+    execute "normal `[v`]rx"
+endfunction
+
+nnoremap ! :call Invert(0)<CR>
+vnoremap ! :<C-u>call Invert(1)<CR>
