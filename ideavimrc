@@ -1,13 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"🌸🌸🌸 NERDTree 🌸🌸🌸
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"在目录中，按下 go 打开文件并保持光标在目录
-"在目录中，按下 gi 以上下并排窗口形式打开文件(并关闭目录)
-"在目录树中，使用空格预览文件
-"光标在目录时，按Esc回到编辑器
-"编辑器和目录间切换存在许多功能类似的快捷键，相似但不完全相同
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "COMMAND MODE
 """""""""""""
 " Moving a set of lines using the :m command
@@ -23,6 +14,38 @@
 " :t.              : copy the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
 " :m.              : move the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
 " leader. :repeat the last command
+" :normal . : repeat the last normal mode command
+" :norm . : repeat the last normal mode command
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"🌸🌸🌸 NERDTree 🌸🌸🌸
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"o	Open files, directories and bookmarks	g:NERDTreeMapActivateNode
+"go	Open selected file, but leave cursor in the NERDTree	g:NERDTreeMapPreview
+"t	Open selected node/bookmark in a new tab	g:NERDTreeMapOpenInTab
+"T	Same as 't' but keep the focus on the current tab	g:NERDTreeMapOpenInTabSilent
+"i	Open selected file in a split window	g:NERDTreeMapOpenSplit
+"gi	Same as i, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewSplit
+"s	Open selected file in a new vsplit	g:NERDTreeMapOpenVSplit
+"gs	Same as s, but leave the cursor on the NERDTree	g:NERDTreeMapPreviewVSplit
+"O	Recursively open the selected directory	g:NERDTreeMapOpenRecursively
+"x	Close the current nodes parent	g:NERDTreeMapCloseDir
+"X	Recursively close all children of the current node	g:NERDTreeMapCloseChildren
+"P	Jump to the root node	g:NERDTreeMapJumpRoot
+"p	Jump to current nodes parent	g:NERDTreeMapJumpParent
+"K	Jump up inside directories at the current tree depth	g:NERDTreeMapJumpFirstChild
+"J	Jump down inside directories at the current tree depth	g:NERDTreeMapJumpLastChild
+"<C-J>	Jump down to next sibling of the current directory	g:NERDTreeMapJumpNextSibling
+"<C-K>	Jump up to previous sibling of the current directory	g:NERDTreeMapJumpPrevSibling
+"r	Recursively refresh the current directory	g:NERDTreeMapRefresh
+"R	Recursively refresh the current root	g:NERDTreeMapRefreshRoot
+"m	Display the NERDTree menu	g:NERDTreeMapMenu
+"q	Close the NERDTree window	g:NERDTreeMapQuit
+"A	Zoom (maximize/minimize) the NERDTree window	g:NERDTreeMapToggleZoom
+"d	Delete file or directory	g:NERDTreeMapDelete
+"n	Create File	g:NERDTreeMapNewFile
+"N	Create Directory	g:NERDTreeMapNewDir
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -61,6 +84,10 @@
 " use 2dw. other than d3w
 " use daw to delete a word other than dbx bdw
 " use <ESC>o to open a new line below the current line other than <CR>, because of smaller granularity
+" use visual mode as a position marking system and use gv to go back to the last position
+"`` : go back to the last position
+"`. : go to the last change
+" use mM `M to mark a global position and go back to it
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -100,6 +127,7 @@
 "选中需要surround的字段，大写的S，然后输入需要的符号
 "hr= "dic.form" - sum 如果是带.的  用ysiW 或者
 "或者 viW S"
+" example  New york : vee S"  输入双引号
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -132,6 +160,7 @@
 "<C-r>0 paste the content of the register 0
 "procticcal Vim, by Drew Neil
 "Read Drew Neil's book,
+"_d: black hole register
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,19 +222,6 @@ let g:argtextobj_pairs="[:],(:),<:>"
 "MATCHIT
 """"""""
 set matchit
-let b:match_words='\<begin\>:\<end\>,'
-\. '\<module\>:\<endmodule\>,'
-\. '\<class\>:\<endclass\>,'
-\. '\<fork\>:\<join\>,'
-\. '\<task\>:\<endtask\>,'
-\. '\<function\>:\<endfunction\>,'
-\. '\<if\>:\<else if\>:\<else\>,'
-\. '\<if\>:\<else\>,'
-\. '\<ifdef\>:\<endif\>,'
-\. '\<ifndef\>:\<endif\>,'
-\. '\<ifdef\>:\<elsif\>:\<endif\>,'
-\. '\<program\>:\<endprogram\>,'
-\. '\<while\>:\<continue\>:<break\>:\<endwhile\>'
 let b:matchit_ignorecase=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -231,10 +247,10 @@ let g:highlightedyank_highlight_in_visual = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "WHICH-KEY
-""""""""""
-set which-key
 """""""""
 "SETTINGS
+""""""""""
+set which-key
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_FontSize = 16
@@ -264,7 +280,6 @@ let g:WhichKeyDesc_NERDTreeOrNew_NewFile = "<leader>nf 新建文件"
 let g:WhichKeyDesc_NERDTreeOrNew_NewClass = "<leader>nc 新建scratch文件"
 let g:WhichKey_PrefixColor = "#f335b2"
 let g:WhichKeyDesc_GotoTest = "gt 在源代码和测试代码之间快速切换"
-let g:WhichKeyDesc_bookmark = "mm 书签"
 "显示书签（Bookmarks）工具窗口，其中包含当前文件中设置的书签列表(Ctrl + F11)
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>bm 显示书签工具窗口"
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>bb 显示书签工具窗口"
@@ -274,6 +289,17 @@ let g:WhichKey_SortOrder = "by_key_prefix_first"
 """""""""""""""
 let g:WhichKeyDesc_leader = "<leader> Leader key"
 let g:WhichKeyDesc_leader_leader = "<leader><leader> Leader leader key"
+let g:WhichKeyDesc_easymotion_z = "<leader><leader>z easymotion-jumptoanywhere"
+let g:WhichKeyDesc_easymotion_n = "<leader><leader>v easymotion-vim-n"
+let g:WhichKeyDesc_easymotion_N = "<leader><leader>N easymotion-vim-N"
+let g:WhichKeyDesc_easymotion_L = "<leader><leader>L easymotion-fl"
+let g:WhichKeyDesc_CodeAndClose_CloseAllEditorsButActive = "zq 关闭其他标签页"
+let g:WhichKeyDesc_Show_FileStructure = "<leader>ss 显示文件结构"
+let g:WhichKeyDesc_ExtractConstant = "<leader>ec 提取常量"
+let g:WhichKeyDesc_ExtractVariable = "<leader>ev 引入变量"
+let g:WhichKeyDesc_ExtractField = "<leader>ef 引入字段"
+let g:WhichKeyDesc_Show = "<leader>s 显示&停止"
+let g:WhichKeyDesc_ExtractMethod = "<leader>em 提取方法"
 let g:WhichKeyDesc_MethodUp = "gm 将光标移动到上一个方法的声明处"
 let g:WhichKeyDesc_easymotion = "s 快速跳转"
 let g:WhichKeyDesc_CodeAndClose = "<leader>c Code&关闭"
@@ -325,6 +351,7 @@ nnoremap ]] :action MethodDown<cr>
 
 "将光标移动到上一个方法的声明处
 nmap gm <action>(MethodUp)
+nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "🌸🌸🌸 Easymotion 🌸🌸🌸
@@ -371,26 +398,22 @@ vnoremap sr y:%s///gcI<left><left><left><left><left><C-r>0<right>
 vnoremap ss y/<C-r>0<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap U <C-r>
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "e: Extract
 "extract method/function 将选中的代码片段提取为一个独立的方法(Ctrl + Alt + M)
 vmap <leader>em <action>(ExtractMethod)
-let g:WhichKeyDesc_ExtractMethod = "<leader>em 提取方法"
 vmap <leader>ec <action>(IntroduceConstant)
-let g:WhichKeyDesc_ExtractConstant = "<leader>ec 提取常量"
 "extract field （引入字段）的重构操作:将选中的代码片段转化为一个新的字段，并自动将选中的代码片段替换为对该字段的引用(Ctrl + Alt + F)
 vmap <leader>ef <action>(IntroduceField)
 
-let g:WhichKeyDesc_ExtractField = "<leader>ef 引入字段"
 "extract variable （引入变量）的重构操作:将选中的代码片段抽取为一个新的变量，并自动替换选中的代码片段为新的变量引用(Ctrl + Alt + V)
 vmap <leader>ev <action>(IntroduceVariable)
-let g:WhichKeyDesc_ExtractVariable = "<leader>ev 引入变量"
 "========== s ==========
-let g:WhichKeyDesc_Show = "<leader>s 显示&停止"
 "显示当前打开文件的文件结构弹出窗口，其中包含文件中的类、方法、字段等结构(Alt + 7)
-let g:WhichKeyDesc_Show_FileStructure = "<leader>ss 显示文件结构"
 nmap <leader>ss <action>(FileStructurePopup)
 
 "用于显示方法或函数的参数信息(Ctrl + p)
@@ -410,7 +433,6 @@ nmap zc <action>(ExpandRegion)
 "========== w ==========
 "Vim 的命令 :e, :sp, :vsp 是支持的。
 "关闭其他标签页
-let g:WhichKeyDesc_CodeAndClose_CloseAllEditorsButActive = "zq 关闭其他标签页"
 nmap zq <action>(CloseAllEditorsButActive)
 "向右拆分标签页
 let g:WhichKeyDesc_Windows_Move_MoveTabRight = "zr 向右拆分标签页"
@@ -513,15 +535,11 @@ nmap <leader><leader>s <Plug>(easymotion-bd-s)
 let g:WhichKeyDesc_easymotion_s = "<leader><leader>s 跳转到任意位置"
 "easymotion-jumptoanywhere
 nmap <leader><leader>z <Plug>(easymotion-jumptoanywhere)
-let g:WhichKeyDesc_easymotion_z = "<leader><leader>z easymotion-jumptoanywhere"
 "easymotion-vim-n
 nmap <leader><leader>n <Plug>(easymotion-vim-n)
-let g:WhichKeyDesc_easymotion_n = "<leader><leader>v easymotion-vim-n"
 "easymotion-vim-N
 nmap <leader><leader>N <Plug>(easymotion-vim-N)
-let g:WhichKeyDesc_easymotion_N = "<leader><leader>N easymotion-vim-N"
 nmap <leader><leader>l <Plug>(easymotion-bd-fl)
-let g:WhichKeyDesc_easymotion_L = "<leader><leader>L easymotion-fl"
 "映射C-H 为ide的替换功能
 nmap <C-H> :action Replace<CR>
 "==============================================
@@ -548,7 +566,7 @@ nmap g<A-n> <Plug>AllOccurrences
 xmap g<A-n> <Plug>AllOccurrences
 map <tab><tab> <action>(RecentLocations)
 nmap == <action>(ReformatCode)
-nmap `` <action>(FileStructurePopup)
+"nmap `` <action>(FileStructurePopup)
 " add bookmark
 nmap `2 <action>(ShowBookmarks)
 nmap `1 <action>(ToggleBookmark)
@@ -779,7 +797,6 @@ vnoremap <leader>mrec    <Esc>:action IntroduceConstant<CR>
 nnoremap <leader>mref    :action IntroduceField<CR>
 vnoremap <leader>mref    <Esc>:action IntroduceField<CR>
 
-nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
 " toggle line number relative
 function! NumberToggle()
   if(&relativenumber == 1)
