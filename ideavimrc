@@ -1,4 +1,68 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"COMMAND MODE
+"""""""""""""
+" Moving a set of lines using the :m command
+" '<,>'normal I//  : insert // at the beginning of a range of lines
+" '<,>'normal A//  : append // at the end of a range of lines
+" '<,>'t0          : copy the range of lines to the beginning of the file
+" '<,>'t$          : copy the range of lines to the end of the file
+" '<,>'m0          : move the range of lines to the beginning of the file
+" '<,>'m$          : move the range of lines to the end of the file
+" '<,>'m29         : move the range of lines to line 29
+" :6.              : copy line 6 to the line where the cursor is located
+" :t6.             : copy the line where the cursor is located to line 6
+" :t.              : copy the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
+" :m.              : move the line where the cursor is located to the line where the cursor is located  (duplicate the line) same as yyp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"QUICKSCOPE
+"""""""""""
+"Normally the { and } motions only match completely empty lines. With this plugin lines that only contain whitespace are also matched.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"COMENTARY
+""""""""""
+"set comentary 使用技巧: gcat 选中代码块，然后gc注释代码块,gc取消注释代码块
+"set comentary 使用技巧: gcc 注释当前行,gc取消注释当前行
+"set comentary 使用技巧: gcap 注释当前段落,gc取消注释当前段落
+"set comentary 使用技巧: gcae 注释整个文件,gc取消注释整个文件
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ARGTEXTOBJ
+"""""""""""
+"That is, such as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"INSERT MODE OR BASH SHELL
+""""""""""""""""""""""""""
+"<c-h> to delete the previous character
+"<c-w> to delete the word before the cursor
+"<c-u> to delete the line from the cursor to the beginning of the line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"PRACTICAL VIM
+""""""""""""""
+" use dw. other than d2w
+" use 2dw. other than d3w
+" use daw to delete a word other than dbx bdw
+" use <ESC>o to open a new line below the current line other than <CR>, because of smaller granularity
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"TEXTOBJ-ENTIRE
+"""""""""""""""
+"difference between ae and ie : ie exclude empty lines of the leading and trailing
+"tips:gcae: comment the entire file
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"EXCHANGE
+"""""""""
 "假设你想要替换一个段落中的某个词语 "oldword" 为 "newword"：
 "首先，将 "newword" 复制到寄存器中。将光标放到 "newword" 上，然后输入 yiw。
 "HH然后，移动光标到 "oldword" 上，并输入 griw。这会用 "newword" 替换 "oldword"。
@@ -10,8 +74,11 @@
 "将光标移动到 "bar" 上，再次输入 cxiw，"foo" 和 "bar" 的位置就会交换。用 .  重复键就可以重复这个操作。
 "如果你想要交换两个tag的位置，可以使用cxat
 "如果你想要交换两个句子的位置，可以使用cxx
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"========================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"SURROUND
+"""""""""
 "ysiw[：将光标所在的单词用中括号[]环绕。
 "cs"{：将光标所在位置的一对双引号更改为大括号{}。
 "ds)：删除光标所在位置的一对圆括号()。
@@ -24,69 +91,96 @@
 "hr= "dic.form" - sum 如果是带.的  用ysiW 或者
 "或者 viW S"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "ACEJUMP
+""""""""
 "Press the keyboard shortcut for AceAction (Ctrl+; by default) to activate AceJump,Press the AceJump shortcut a second time to activate Declaration Mode, which is equivalent to the Navigate To action in the IDE. Press the AceJump shortcut three times before completing a tag to activate Target Mode. Once Target Mode is activated, jumping to a tag will select an entire word
 "<c-s-;> :AceJump shortcut for Line Mode(Ctrl+Shift+; by default), to target the beginning, first non-whitespace, and last character of every line in the editor). Then jump to one by completing the tag.
 "<c-a-;>: Target Mode can also be activated directly by pressing the shortcut for AceTargetAction (Ctrl+Alt+; by default).
-"""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <c-m> minimize the current window
-""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"MACRO MODE
+"""""""
 "qa            : record keystrokes to register a
 "your commands
 "q             : quit recording
 "@a            : execute commands again
 "@@            : repeat
-""""""""""""""""""""""""""""""""""""180
-"<c-x> in normal mode to subtract from the current number
-""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"REGISTER MODE
+"""""""""
 ":reg display contents of allkregisters
 "1p      : paste from register 1
 "<C-r>0 paste the content of the register 0
 "procticcal Vim, by Drew Neil
 "Read Drew Neil's book,
-""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "INSERT MODE
+""""""""""""
 "<C-r> = 7*22 <CR>  = 154 : insert 154
 """"""""""""""""""""""""""""""""""""""
 " gi got to the last place you left insert mode
-""""""""""""""""""""""""""""""""""""""""""""""""
-"" BASE SETTINGS
-"" ========================================================
-"COMMAND MODE
-" moving a set of Lines with the :m command
-" '<,>'m29<CR>
-" '<,>'normal I//  : add // to beginning range of lines
-" '<,>'normal A//  : add // to ending range of lines
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = " "
 set scrolloff=10
 set nu
-set multiple-cursors
 set linenumber
 set relativenumber
-set textobj-entire
-set argtextobj
+set ignorecase
+set showcmd
+set showmode
 set history=3000000
-set ideastatusicon=gray
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"That is, such as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:argumentobject_force_toplevel = 1
-let g:argtextobj_pairs="[:],(:),<:>"
-"按esc顺便取消高亮"
-nnoremap <esc> <esc>:noh<return>
 set smartcase
 set visualbell
-set showmode
-set showcmd
-set ignorecase
+set ideastatusicon=gray
 set hlsearch
 set incsearch
 set noerrorbells
-"======================commentary==================================
-"set comentary 使用技巧: gcat 选中代码块，然后gc注释代码块,gc取消注释代码块
+set clipboard+=unnamed
+set clipboard=unnamedplus
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"PLUGINS
+""""""""
+set textobj-entire
+set multiple-cursors
 set commentary
-"========================================================
+set vim-paragraph-motion
+set easymotion
+set notimeout
+set nerdtree
+set surround
+set exchange
+set ideajoin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"ARGTEXTOBJ
+"""""""""""
+set argtextobj
+let g:argumentobject_force_toplevel = 1
+let g:argtextobj_pairs="[:],(:),<:>"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"MATCHIT
+""""""""
 set matchit
 let b:match_words='\<begin\>:\<end\>,'
 \. '\<module\>:\<endmodule\>,'
@@ -102,87 +196,50 @@ let b:match_words='\<begin\>:\<end\>,'
 \. '\<program\>:\<endprogram\>,'
 \. '\<while\>:\<continue\>:<break\>:\<endwhile\>'
 let b:matchit_ignorecase=1
-"=======================quickscope=================================
-"Normally the { and } motions only match completely empty lines. With this plugin lines that only contain whitespace are also matched.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"QUICKSCOPE
+"""""""""""
 set quickscope
-"========================================================
-set vim-paragraph-motion
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_primary_color = '#ff0000'
 let g:qs_secondary_color = '#ff00ff'
 let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q']
-"Use system clipboard
-set clipboard+=unnamed
-let mapleader = " "
-"共享系统粘贴板
-set clipboard=unnamedplus
-"" Plugin Settings
-"========================================================
-"ysiw[：将光标所在的单词用中括号[]环绕。
-"cs"{：将光标所在位置的一对双引号更改为大括号{}。
-"ds)：删除光标所在位置的一对圆括号()。
-"ysiw"：将光标所在的单词用双引号""环绕。
-"ysit"：将光标所在的单词用标签<>环绕。
-"ysat"：将光标所在的单词用标签<>环绕，并且包括标签。
-"cst <div>：将光标所在位置的一对标签更改为<div>。
-"dst : 删除光标所在位置的一对标签。
-"选中需要surround的字段，大写的S，然后输入需要的符号
-"hr= "dic.form" - sum 如果是带.的  用ysiW 或者
-"或者 viW S"
-set surround
-"====================highlightedyank====================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"HIGHLIGHTEDYANK
+""""""""""""""""
 set highlightedyank
 let g:highlightedyank_highlight_color = "rgba(24, 241, 187)"
 let g:highlightedyank_highlight_duration = 800
 let g:highlightedyank_max_lines = 1000
 let g:highlightedyank_highlight_in_visual = 0
-"========================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"set sneak
-set nerdtree
-"Easymotion settings
-set easymotion
-set notimeout
-"Which-key settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"WHICH-KEY
+""""""""""
 set which-key
-"let g:WhichKey_ShowVimActions = "true"
+"""""""""
+"SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_FontSize = 16
 let g:WhichKey_CommandColor = "#41ead4"
 let g:WhichKey_PrefixColor = "#f335b2"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"CONFIGURATIONS
+"""""""""""""""
 let g:WhichKeyDesc_leader = "<leader> Leader key"
-let g:WhichKeyDesc_leader = "<leader>x Open file explorer"
-let g:WhichKeyDesc_easymotion = "<leader>j Jump with Easymotion"
-let g:WhichKeyDesc_GotoNextError = "ge 跳转到下一个错误或警告"
-let g:WhichKeyDesc_display = "<leader>d Display options"
-let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
-let g:WhichKeyDesc_df_mode = "<leader>dd Toggle Distraction-Free mode"
-let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
-let g:WhichKeyDesc_action= "<leader>a Actions"
-let g:WhichKeyDesc_action_context_menu = "<leader>am Open context menu"
-let g:WhichKeyDesc_action_search = "<leader>as Open command modal"
-let g:WhichKeyDesc_file_nav = "<leader>f File navigation"
-let g:WhichKeyDesc_file_nav_goto_content = "<leader>fc Search for file content"
-let g:WhichKeyDesc_file_nav_show_recent_files = "<leader>fr Show recent files"
-let g:WhichKeyDesc_file_nav_show_recent_locations = "<leader>ll Show recent locations"
-let g:WhichKeyDesc_close_tab = "<leader>q Close active tab"
-let g:WhichKeyDesc_goto = "<leader>g Go to X"
-let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to Definition"
-let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to Type Definition"
-let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to Implementation"
-let g:WhichKeyDesc_goto_usages = "<leader>gu Go to Usages"
-let g:WhichKeyDesc_goto_test = "<leader>gt Go to Test"
-let g:WhichKeyDesc_goto_back = "<leader>gb Go Back"
-let g:WhichKeyDesc_goto_forward = "<leader>gf Go Forward"
-let g:WhichKeyDesc_git = "<leader>g Git operations"
-let g:WhichKeyDesc_git_commit = "<leader>gc Open Git commit dialog"
-let g:WhichKeyDesc_git_status = "<leader>gs Open Git status dialog"
-let g:WhichKeyDesc_git_branches = "<leader>gb Open Git branches list"
-let g:WhichKeyDesc_errors = "<leader>e Error navigation"
-let g:WhichKeyDesc_errors_next = "<leader>en Go to next error in solution"
-"================================================================================================
+let g:WhichKeyDesc_leader_leader = "<leader><leader> Leader leader key"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "🌍🌍🌍 No Leader Keymaps 🌍🌍🌍
-"================================================================================================
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "--普通模式下使用回车键，向下/向上 增加一行
 nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
@@ -194,32 +251,21 @@ inoremap <C-j> <Esc> :m +1<CR>gi
 inoremap <C-k> <Esc> :m -2<CR>gi
 xnoremap <C-j> :m '>+1<cr>gv=gv
 xnoremap <C-k> :m '<-2<cr>gv=gv
-"" Key mappings
+
 nmap <Home> ^
 imap <Home> ^
+
 "Pane navigation
 nnoremap <A-h> <C-w>h
 nnoremap <A-l> <C-w>l
 nnoremap <A-k> <C-w>k
 nnoremap <A-j> <C-w>j
+
 "Jump between methods
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
-"========== p ==========
-"从剪切板粘贴到下面行
-let g:WhichKeyDesc_PasteClipboardDown = "<leader>p 从剪切板粘贴到下面行"
-nmap <leader>p "+p
-"从剪切板粘贴到上面行
-let g:WhichKeyDesc_PasteClipboardUp = "<leader>P 从剪切板粘贴到上面行"
-nmap <leader>P "+P
-"在可视模式中：从剪切板粘贴到下面n行
-let g:WhichKeyDesc_PasteClipboardDown = "<leader>p 从剪切板粘贴到下面行"
-vmap <leader>p "+p
-"在可视模式中：从剪切板粘贴到上面行
-let g:WhichKeyDesc_PasteClipboardUp = "<leader>P 从剪切板粘贴到上面行"
-vmap <leader>P "+P
+
 "将光标移动到上一个方法的声明处
-"last changed in current buffer(file)
 nmap gm <action>(MethodUp)
 let g:WhichKeyDesc_MethodUp = "gm 将光标移动到上一个方法的声明处"
 "在可视模式中：删除选择的文本并复制到剪切板
@@ -228,13 +274,6 @@ vmap <leader>dd "+d
 "Easy visual indentation
 vnoremap < <gv
 vnoremap > >gv
-"Popup navigation
-inoremap <C-j> <Action>(PopupMenu-selectNext)
-inoremap <C-k> <Action>(PopupMenu-selectPrev)
-"" Leader commands
-"" ========================================================
-"Jump around with easymotion
-"map <leader>j <Plug>(easymotion-s)
 "================================================================================================
 "🌸🌸🌸 Easymotion 🌸🌸🌸
 "================================================================================================
@@ -319,21 +358,6 @@ map <leader>gb <Action>(Git.Branches)
 map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
 map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
 set ReplaceWithRegister
-"替换寄存器内容功能
-set exchange
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"假设你想要替换一个段落中的某个词语 "oldword" 为 "newword"：
-"首先，将 "newword" 复制到寄存器中。将光标放到 "newword" 上，然后输入 yiw。
-"HH然后，移动光标到 "oldword" 上，并输入 griw。这会用 "newword" 替换 "oldword"。
-"如果你想要替换整个文件中的 "oldword"，可以使用 gRiw。
-"文本交换功能（类似 vim-exchange 插件）
-"假设你有两个词 "bar" 和 "foo"，并想要交换它们的位置：
-"bar foo
-"将光标移动到 "foo" 上，然后输入 cxiw 来标记 "foo"。
-"将光标移动到 "bar" 上，再次输入 cxiw，"foo" 和 "bar" 的位置就会交换。用 .  重复键就可以重复这个操作。
-"如果你想要交换两个tag的位置，可以使用cxat
-"如果你想要交换两个句子的位置，可以使用cxx
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "内置搜索优化
 nnoremap g/ :action Find<cr>
 map H h
@@ -517,9 +541,6 @@ let g:WhichKeyDesc_DebugOrDelete_DeBug = "<leader>db 调试"
 nmap <leader>db <Action>(Debug)
 "====================debug&&run====================================
 "使用idea的join代替原始的j
-set ideajoin
-nmap <Home> ^
-imap <Home> ^
 "跳转到行内下一个指定字符
 nmap <leader><leader>f <Plug>(easymotion-bd-f)
 let g:WhichKeyDesc_easymotion_f = "<leader><leader>f 跳转到行内下一个指定字符"
@@ -765,7 +786,6 @@ let g:WhichKeyDesc_bookmarks_next = "<leader>bn Next Bookmark"
 " copy whole file
 "nmap <C-a> ggVG"+y
 " reactivate some IDEA shortcuts
-:map <c-n> <Action>(SearchEverywhere)
 :map <leader>1 <Action>(Run)
 :map <leader>2 <Action>(Debug)
 :map <leader>0 <Action>(Stop)
@@ -827,10 +847,9 @@ nnoremap g<c-i> <c-i>
 nnoremap ge :action GotoNextError<CR>
 nnoremap gE :action ReSharperGotoNextErrorInSolution<CR>
 nnoremap gu :action FindUsages<CR>
-nnoremap gi :action GotoImplementation<CR>
 nnoremap go :action GotoOverride<CR>
-nnoremap <s-TAB> :action PreviousTab<CR> 
-nnoremap <TAB> :action NextTab<CR> 
+nnoremap <s-TAB> :action PreviousTab<CR>
+nnoremap <TAB> :action NextTab<CR>
 nnoremap gs :action Switcher<CR>
 nnoremap gr :action RecentFiles<CR>
 nnoremap gb :action JumpToLastChange<CR>
@@ -838,3 +857,4 @@ nnoremap gn :action VcsShowNextChangeMarker<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <s-9> 0
 nnoremap <s-0> $
+nnoremap <esc> <esc>:noh<return>
