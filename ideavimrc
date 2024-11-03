@@ -1,146 +1,207 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"GLOBAL COMMAND--------------------------------------------------------
-"""""""""""""""
-":g/re/d  :在全局删除匹配的行,re是正则表达式
-"/\v\<\/?\w+\>   ":在全局匹配html标签
-":g//d  :删除所有空行
-""""""""""""""""""""""""""""""
-"COLLECT TODOS TO THE REGISTER-----------------------------------------
-":g/someword/yank A  :在全局匹配someword并且复制到寄存器A
-""""""""""""""""""""""""""""""""""
-"MOVE THE TODOS TO THE END OF FILE-------------------------------------
-":g/someword/t$  :在全局匹配someword并且移动到文件末尾
-""""""""""""""""""""""""""""""""""""""""""""
-":v/href/d :删除所有不含href的行
+" Vim Configuration: Global Commands & Substitutions
+" Author: [saul]
+" Last Updated: [2024/11/03]
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"SUBSTITUDE MODE-------------------------------------------------------
-""""""""""""""""
-":[rang]s[ubstitute]/{pattern}/{string}/[flags]
-" flags: g - global, c - confirm, n - number of matches,I - ignore case
-"\r :插入一个换行符
-"\t :插入一个制表符
-"\\ :插入一个反斜杠
-"\1 :插入第一个子模式匹配的内容
-"\2 :插入第二个子模式匹配的内容
-"\0 :插入匹配模式的所有内容
-"&  :插入匹配模式的所有内容
-"\s  :差入一个空白字符
-"~  :使用上一次调用:substitude的字符串
-"""""""""""""""""
-"/Pragmatic\ze Vim：匹配 Pragmatic，但仅在它后面紧跟 Vim 的情况下才匹配。
-"
-"这里的 \ze 表示匹配的结束位置在 Vim 之前，因此最终的匹配结果是 Pragmatic，但要求后面有 Vim 才能匹配成功。
-"/hello\zs world：匹配 world，但仅在它前面紧跟 hello 的情况下才匹配。
-"
-"这里的 \zs 表示匹配的起始位置在 world 之前，因此最终的匹配结果是 world，但要求前面有 hello 才能匹配成功。
+" Global Commands
+"--------------------------------------------------------------
+" Delete lines matching a pattern across the entire file
+":g/re/d                - Delete lines matching regex 're'
+"/\v\<\/?\w+\>          - Match HTML tags globally
+":g//d                  - Delete all empty lines
+
+" Collect TODOs to the Register
+":g/someword/yank A     - Copy lines containing 'someword' to register A
+
+" Move TODOs to the End of the File
+":g/someword/t$         - Move lines containing 'someword' to the end of the file
+
+" Delete lines not containing 'href'
+":v/href/d              - Delete all lines that do not contain 'href'
+"----------------------------------------------------------------------
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"VIM REGULAR EXPRESSIONS
-""""""""""""""""""""""""
-" /\v :for very macgic regexmode
-""""""""""""""""""""""""
+" Substitution Mode
+"--------------------------------------------------------------
+" Syntax: [range]s[ubstitute]/{pattern}/{string}/[flags]
+" Flags: 
+"   g - Global replacement
+"   c - Confirm each replacement
+"   n - Report the number of matches
+"   I - Ignore case in matching
+
+" Special Substitution Symbols:
+"\r - Insert a newline
+"\t - Insert a tab
+"\\ - Insert a backslash
+"\1 - Insert first captured group
+"\2 - Insert second captured group
+"\0 - Insert entire matched pattern
+"&  - Repeat the matched pattern
+"\s - Insert whitespace
+"~  - Use the last substitution string
+"----------------------------------------------------------------------
+
+" Conditional Matching:
+"----------------------------------------------------------------------
+"/Pragmatic\ze Vim     - Match 'Pragmatic' only if it's immediately followed by 'Vim'
+"/hello\zs world       - Match 'world' only if it's immediately preceded by 'hello'
+"----------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" REGULAR EXPRESSIONS
+"----------------------------------------------------------------------
+" Very Magic Mode
+" Use the very magic mode to simplify regex syntax
+":/\v : Activate very magic regex mode
+"
+" HTML Tag Matching
+" Match HTML tags globally
+"/\v\<\/?\w+\>
+"
+" Remove Empty Lines
+" Delete all empty lines using a global command
+":g//d
+
+" CSS COLOR MATCHING
+"----------------------------------------------------------------------
+" Examples of CSS color properties
 "body   {color:#3c3c3c;}
 "a   {color:#0000EE;}
 "strong   {color:#000;}
-"/\v#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})
+
+" Match 6 or 3 hex digits for colors
+"/\v#(\x{6}|\x{3})
+" Alternative shorter version
 "shorter version: /\v#(\x{6}|\x{3})
-"use \x :to substitude [0-9a-fA-F]
-"/\v#(\x{6}|\x{3})  :to match 6 or 3 hex digits in a row ,eg: #000 #fff #333 #ff00ff
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"USE V TO ACTIVATE VERY MAGIC SEARCH
-""""""""""""""""""""""""""""""""""""
-"The N key searches backward...
-"...thev pattern switch(a.k.a.very magic search)...
-"use /aka will be match too much unwanted characters
-""""""""""""""""""""""""""""""""""""
-"USE V TO ACTIVATE VERY NOMAGIC SEARCH
-"/\Va.k.a
-""""""""""""""""""""""""""""""""""""""""""""
-"THIS REGEX IS USE TO CLEAN THE REPEAT WORDS
-"/\v<(\w+)\_s+\1+> : to match the word and the _s+ and the word again
-""""""""""""""""""""""""""""""""""""""""""
-"gUgn : to make the first match upper case
-"/\vX(ht)?ml\C<CR> : to match html or xhtml
-""""""""""""""""""""""""""""""""""""
-"X：匹配 XhtmlDocument 和 XhtmlTag 中的 X。
-"(ht)?：匹配 Xhtml 中的 ht，或者可以忽略 ht，直接匹配 Xml（如果只是 html）。
-"ml：匹配 ml。
-"\C：忽略大小写，所以无论是 Xhtml 还是 XHTML 都能匹配。
-""""""""""""""""""""""""""""""""""""
-"class XhtmlDocument < XmlDocument;end
-"class XhtmlTag < XmlTag;end
-"""""""""
-"example:
-"""""""""""""""""""""""""""""""""""""""""""
-"This string contains a'quoted' word.
-"This string contains 'two' quoted 'words'.
-"This 'string doesn't make things easy'.
-"""""""""""""""""""""""""""""""""""""""""""
-"regex1: /\v'.+' : match the quoted word will show three matches which is : 'quoted', 'two' quoted 'words', 'string doesn't make things easy'
-"regex2: /\v'[^']+': match the quoted word will show two matches which is : 'quoted', 'two' quoted 'words',and  'string doesn'
-"regex3:/\v'([^']|'\w)+': match the quoted word will show two matches which is : 'quoted', 'two'  'words',and  'string doesn't make things easy'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"正则表达式 1：/\v'.+'
-"分析
-"\v：启用 very magic 模式，简化正则表达式语法。
-"'.+'：匹配以单引号 ' 开头，至少包含一个字符的内容，并以单引号 ' 结尾。
-".：匹配任意字符。
-"+：匹配前一个字符（即 .）一次或多次。
-"匹配结果
-"这个表达式会匹配尽可能长的内容，因为 .+ 是贪婪匹配。所以它会匹配所有包含在单引号中的内容，甚至包含中间的单引号。
-"
-"匹配 1：'quoted'
-"匹配 2：'two' quoted 'words'
-"匹配 3：'string doesn't make things easy'
-"解释
-"'.+' 使用了贪婪匹配，因此会匹配尽可能多的字符，包括中间的单引号。
-"这导致在第二行中，'two' quoted 'words' 被视为一个完整的匹配，因为它从第一个 ' 到最后一个 ' 之间的所有内容都被包含进来了。
-"正则表达式 2：/\v'[^']+'
-"分析
-"\v：启用 very magic 模式。
-"'[^']+'：匹配以单引号 ' 开头，然后是一段不包含单引号的字符，最后再以单引号 ' 结尾。
-"[^']：表示不包含单引号的任意字符。
-"+：匹配前一个字符一次或多次。
-"匹配结果
-"这个表达式会匹配单引号包裹的内容，并且内容中不能包含任何单引号字符。
-"
-"匹配 1：'quoted'
-"匹配 2：'two'
-"匹配 3：'words'
-"匹配 4：'string doesn'
-"解释
-"因为 [^'] 表示不包含单引号的字符，所以当引号内有单引号时（例如 string doesn't make things easy），它只匹配到前面不包含单引号的部分。
-"在第三行中，它只匹配到了 'string doesn'，因为在此之后遇到了一个单引号，导致匹配结束。
-"正则表达式 3：/\v'([^']|'\w)+'
-"分析
-"\v：启用 very magic 模式。
-"'([^']|'\w)+'：
-"[^']：匹配不包含单引号的任意字符。
-"\|：逻辑或，用于选择不同的匹配条件。
-"'\w：匹配一个单引号 '，后面紧跟一个单词字符（字母、数字或下划线）。
-"+：匹配前面的模式一次或多次。
-"匹配结果
-"这个表达式的匹配规则更复杂，允许匹配内容中带有单引号，但这些单引号后必须跟着一个单词字符（字母、数字或下划线），使得它更适合处理包含缩写或所有格的单词。
-"
-"匹配 1：'quoted'
-"匹配 2：'two'
-"匹配 3：'words'
-"匹配 4：'string doesn't make things easy'
-"解释
-"由于 ([^']|'\w)+ 的设计，这个正则表达式允许在匹配内容中出现 '\w 形式的单引号字符，因此在第三行的 string doesn't make things easy 中，整个引号内容都被匹配到。
-"这个表达式更适合处理带有缩写或所有格的单引号内容，例如 doesn't，因为它会将 ' 后面的字母作为合法的一部分。
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"正则表达式： :/\v\<\/?\w+\>
-"\v：启用 very magic 模式，使得大多数特殊字符可以不用转义。
-"<：匹配一个 左尖括号 <，用于定位 HTML 或 XML 标签的开始。
-"\/?：匹配一个可选的 斜杠 /，表示标签可以是闭合标签（例如 </tag>）或起始标签（例如 <tag>）。
-"? 表示前面的斜杠 / 是可选的，这样可以匹配没有 / 的开标签和有 / 的闭标签。
-"\w+：匹配一个或多个单词字符（字母、数字或下划线），用于匹配标签的名称部分。
-"例如，可以匹配 div、a、span 等标签名。
-">：匹配一个 右尖括号 >，表示标签的结束。
+" Magic Search Modes
+"----------------------------------------------------------------------
+" Very Magic Search Mode:
+" Use 'v' to simplify regex patterns with very magic mode.
+" Command: /\v
+" Example:
+"   /\v#(\x{6}|\x{3}) - Match hexadecimal color codes like #fff or #ff00ff in a concise pattern.
+"----------------------------------------------------------------------
+
+" Very NoMagic Search Mode:
+" Minimize special characters' magic by using very nomagic.
+" Command: /\V
+" Example:
+"   /\Va.k.a - Match 'a.k.a' precisely as it appears, without treating any characters as special.
+"----------------------------------------------------------------------
+
+" Identifying Repeated Words
+"----------------------------------------------------------------------
+" Command: /\v<(\w+)\_s+\1+>
+"----------------------------------------------------------------------
+" Description:
+"   This regex matches consecutive, duplicate words separated by spaces, helping to clean up textual redundancies.
+"----------------------------------------------------------------------
+" Example:
+"   The phrase 'Hello Hello' will be detected, showcasing the regex's ability to identify and target repeats.
+"----------------------------------------------------------------------
+" Usage:
+"   To find and possibly replace repeated words, apply this pattern in your search and replace commands.
+"----------------------------------------------------------------------
+
+" Adjusting Case with Regex
+"----------------------------------------------------------------------
+" Command: gUgn
+"----------------------------------------------------------------------
+" Example Definitions:
+"   class XhtmlDocument < XmlDocument; end
+"   class XhtmlTag < XmlTag; end
+"----------------------------------------------------------------------
+" Description:
+"   The 'gUgn' command converts the first match from your search into uppercase, aiding in data normalization or emphasis.
+"----------------------------------------------------------------------
+" Additional Info:
+"   Combine 'gUgn' with \C to ensure the case sensitivity is respected across the matches.
+"----------------------------------------------------------------------
+" Example:
+"   Search with '/\vX(ht)?ml\C', then use 'gUgn' to capitalize the first occurrence of HTML or XHTML, regardless of original case.
+"----------------------------------------------------------------------
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Exploring Regex Patterns in Vim
+"----------------------------------------------------------------------
+" Learn how to leverage Vim's powerful regex capabilities to effectively manage and manipulate quoted strings.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Example Usage: Detecting and Managing Quoted Words
+"----------------------------------------------------------------------
+" Below are regex patterns designed to match quoted words in text, each catering to different nuances in content.
+
+" Regex Pattern 1: /\v'.+'
+" Description:
+"   Matches a sequence enclosed in single quotes, capturing the longest possible string, including inner quotes.
+" Example:
+"   Matches 'quoted', 'two' quoted 'words', 'string doesn't make things easy'.
+"   This pattern is greedy, aiming to capture as much as possible between the first and last quote in its scope.
+
+" Regex Pattern 2: /\v'[^']+'
+" Description:
+"   Targets sequences within single quotes without including additional quotes inside the sequence.
+" Example:
+"   Matches 'quoted', 'two', 'words', does not extend beyond a closing quote unlike Pattern 1.
+"   Ideal for extracting cleanly separated quoted words or phrases.
+
+" Regex Pattern 3: /\v'([^']|'\w)+'
+" Description:
+"   Captures sequences inside quotes, allowing single quotes if followed by a word character, adjusting for possessives or contractions.
+" Example:
+"   Matches 'quoted', 'two', 'words', 'string doesn't make things easy'.
+"   This complex pattern accommodates content with internal single quotes linked to alphabets, making it highly versatile.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" These regex commands provide robust tools for editing and refining text with precision in Vim, enhancing your editing prowess.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Regex for Matching HTML/XML Tags with Example
+"------------------------------------------------------------------------------------------------------------
+" This document provides a detailed explanation of how to use regex to match HTML tags in code using Vim.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Regex Command: /\v<\/?\w+>
+" Description:
+"   The command uses Vim's 'very magic' mode to simplify the regex notation. It matches both opening and closing
+"   HTML/XML tags.
+
+" Example HTML Code:
+"   <ol>
+"   <li>
+"     <a href="/episodes/show-invisibles/">Show invisibles</a>
+"   </li>
+"   <li>
+"     <a href="/episodes/tabs-and-spaces/">Tabs and Spaces</a>
+"   </li>
+"   <li>
+"     <a href="/episodes/whitespace-preferences-and-filetypes/">Whitespace preferences and filetypes</a>
+"   </li>
+"   </ol>
+
+" Matching Process:
+"   1. The pattern starts with the character '<', optionally followed by '/', to accommodate both opening and closing tags.
+"   2. '\w+' captures the tag name, which consists of one or more word characters (letters, digits, or underscores).
+"   3. The pattern is terminated by '>', marking the end of the tag.
+
+" In the given HTML snippet:
+"   - The tags <ol>, <li>, and <a> along with their corresponding closing tags </li>, </a>, and </ol> are matched.
+"   - The regex specifically targets these elements:
+"     * <ol> opens the ordered list.
+"     * <li> tags encapsulate each list item.
+"     * <a> tags within <li> elements enclose the hyperlinks.
+"     * All respective closing tags are similarly identified, ensuring complete tag pairs are recognized.
+
+" This approach effectively highlights the utility of the regex in identifying and potentially modifying or
+" navigating through HTML structures within a Vim editing session, facilitating easier code management.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
