@@ -1,10 +1,19 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Configuration: Global Commands & Substitutions
+"======================================================================
+" Vim Configuration
 " Author: [saul]
 " Last Updated: [2024/11/03]
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
+"VIM CHEAT SHEET
+"--------------------------------------------------------------
+"{n}gg {n}G      " goto line {n}, default first, last line of buffer
+"{n}|            " jump to screen column {n} of current line
+"yl              " yank a single character (l = to the right)
+"vy              " yank a single character (using VISUAL mode)
+"----------------------------------------------------------------------
+
+"======================================================================
 " Global Commands
 "--------------------------------------------------------------
 " Delete lines matching a pattern across the entire file
@@ -20,20 +29,44 @@
 
 " Delete lines not containing 'href'
 ":v/href/d              - Delete all lines that do not contain 'href'
-"----------------------------------------------------------------------
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 " Substitution Mode
-"--------------------------------------------------------------
+"----------------------------------------------------------------------
 " Syntax: [range]s[ubstitute]/{pattern}/{string}/[flags]
-" Flags: 
+" Flags:
 "   g - Global replacement
 "   c - Confirm each replacement
 "   n - Report the number of matches
 "   I - Ignore case in matching
+"----------------------------------------------------------------------
 
+"Substitution examples
+"----------------------------------------------------------------------
+":%s/fred/joe/igc                " general substitute command
+":%s/\r//g                       " delete DOS Carriage Returns (^M)
+"----------------------------------------------------------------------
+":'a,'bg/fred/s/dick/joe/gc      " VERY USEFUL
+"命令 :'a,'bg/fred/s/dick/joe/gc 的作用是：
+"在 Vim 中，从标记 a 到标记 b 之间的行范围内，找到所有包含字符串 fred 的行。
+"在这些找到的行中，将所有出现的 dick 替换为 joe。
+"每次替换之前，Vim 都会询问用户是否确认替换。
+"----------------------------------------------------------------------
+":s/\(.*\):\(.*\)/\2 : \1/       " reverse fields separated by :
+"" non-greedy matching \{-}      " `:help /\{-}`
+":%s/^.\{-}pdf/new.pdf/          " to first pdf)
+":s/fred/<c-r>a/g                " substitute 'fred' with contents of register 'a'
+":%s/^\(.*\)\n\1/\1$/            " delete duplicate lines
+"" running multiple commands
+":%s/suck\|buck/loopy/gc         " ORing
+":s/__date__/\=strftime("%c")/   " insert datestring
+":%s/\f\+\.gif\>/\r&\r/g | v/\.gif$/d | %s/gif/jpg/
+"----------------------------------------------------------------------
+
+"----------------------------------------------------------------------
 " Special Substitution Symbols:
+"----------------------------------------------------------------------
 "\r - Insert a newline
 "\t - Insert a tab
 "\\ - Insert a backslash
@@ -45,14 +78,15 @@
 "~  - Use the last substitution string
 "----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Conditional Matching:
+"hello world  ->   hello world  Pragmatic Vim
 "----------------------------------------------------------------------
 "/Pragmatic\ze Vim     - Match 'Pragmatic' only if it's immediately followed by 'Vim'
 "/hello\zs world       - Match 'world' only if it's immediately preceded by 'hello'
-"----------------------------------------------------------------------
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 " REGULAR EXPRESSIONS
 "----------------------------------------------------------------------
 " Very Magic Mode
@@ -66,20 +100,37 @@
 " Remove Empty Lines
 " Delete all empty lines using a global command
 ":g//d
+"----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " CSS COLOR MATCHING
 "----------------------------------------------------------------------
 " Examples of CSS color properties
 "body   {color:#3c3c3c;}
 "a   {color:#0000EE;}
 "strong   {color:#000;}
+"----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Match 6 or 3 hex digits for colors
+"----------------------------------------------------------------------
 "/\v#(\x{6}|\x{3})
 " Alternative shorter version
 "shorter version: /\v#(\x{6}|\x{3})
+"----------------------------------------------------------------------
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"----------------------------------------------------------------------
+"REGEX SEARCH EXAMPLES
+"----------------------------------------------------------------------
+"/^fred.*joe.*bill           " line beginning with fred, followed by joe then bill
+"/^[A-J]                     " line beginning A-J
+"/^[A-J][a-z]\+\s            " line beginning A-J then one or more lowercase characters then space or tab
+"/fred\_.\{-}joe             " fred then anything then joe (over multiple lines)
+"/fred\_s\{-}joe             " fred then any whitespace (including newlines) then joe
+"/fred\|joe                  " fred OR joe
+"----------------------------------------------------------------------
+
+"======================================================================
 " Magic Search Modes
 "----------------------------------------------------------------------
 " Very Magic Search Mode:
@@ -89,6 +140,7 @@
 "   /\v#(\x{6}|\x{3}) - Match hexadecimal color codes like #fff or #ff00ff in a concise pattern.
 "----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Very NoMagic Search Mode:
 " Minimize special characters' magic by using very nomagic.
 " Command: /\V
@@ -96,6 +148,7 @@
 "   /\Va.k.a - Match 'a.k.a' precisely as it appears, without treating any characters as special.
 "----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Identifying Repeated Words
 "----------------------------------------------------------------------
 " Command: /\v<(\w+)\_s+\1+>
@@ -110,6 +163,7 @@
 "   To find and possibly replace repeated words, apply this pattern in your search and replace commands.
 "----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Adjusting Case with Regex
 "----------------------------------------------------------------------
 " Command: gUgn
@@ -128,12 +182,13 @@
 "   Search with '/\vX(ht)?ml\C', then use 'gUgn' to capitalize the first occurrence of HTML or XHTML, regardless of original case.
 "----------------------------------------------------------------------
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 " Exploring Regex Patterns in Vim
 "----------------------------------------------------------------------
 " Learn how to leverage Vim's powerful regex capabilities to effectively manage and manipulate quoted strings.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"----------------------------------------------------------------------
 
+"----------------------------------------------------------------------
 " Example Usage: Detecting and Managing Quoted Words
 "----------------------------------------------------------------------
 " Below are regex patterns designed to match quoted words in text, each catering to different nuances in content.
@@ -159,15 +214,15 @@
 "   Matches 'quoted', 'two', 'words', 'string doesn't make things easy'.
 "   This complex pattern accommodates content with internal single quotes linked to alphabets, making it highly versatile.
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 " These regex commands provide robust tools for editing and refining text with precision in Vim, enhancing your editing prowess.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"================================================================================================================
 " Vim Regex for Matching HTML/XML Tags with Example
 "------------------------------------------------------------------------------------------------------------
 " This document provides a detailed explanation of how to use regex to match HTML tags in code using Vim.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"================================================================================================================
 
 " Regex Command: /\v<\/?\w+>
 " Description:
@@ -202,11 +257,11 @@
 
 " This approach effectively highlights the utility of the regex in identifying and potentially modifying or
 " navigating through HTML structures within a Vim editing session, facilitating easier code management.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 "MULTIPLE-CURSORS
-"""""""""""""""""
+"----------------------------------------------------------------------
 "fp<C-N><C-N>cname to select next occurance of word under cursor and change it to name
 "Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
 "说明： 在普通模式下，按下 Ctrl+n 将会选中整个当前单词，并将光标移动到文档中下一个相同单词的位置。
@@ -219,26 +274,30 @@
 "hello world
 "multiple examples to try
 "hello NextWholeOccurrence 是完全匹配,而 NextOccurrence 是部分匹配
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+"----------------------------------------------------------------------
+"==================================================
 "ADD A CURSOR TO EACH LINE OF YOUR VISUAL SELECTION
 " vip <C-N> <S-j> : change the whole paragraph to a single line
-"""""""""""""""""""""""""""""""
+"use v select a letter ,and <c-n> to select the next letter and so on, then press <BS> to delete , <CR>to make vertical line
+"%s/,/\r/g<CR>
+"==============================
 "separate lines with a single o
 "vip<C-N>o
-"""""""""""""""""""""""""
+"========================
 "separate line with c<CR>
-"""""""""""""""""""""""""
+"========================
 "v<C-N>c<CR>c<CR>
 "add '"' to
-"""""""""""
+"==========
 "TIPS:
 "To delete blank lines between lines, use the following command:
 "visual select code block you want to clean, then press <C-N> and <BS> to delete the blank lines.<CR>"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 "VIMMULTICURSOR
-"""""""""""""""
+"----------------------------------------------------------------------
+"==============
 "Usage
 "Type mc (multicursor) and a vim command to create cursors
 "Type ms (multiselect) and a vim command to select multiple items
@@ -247,11 +306,12 @@
 "Type mca (multicursor add) to add (or remove) a virtual caret
 "Type mci (multicursor insert) to insert real carets instead of virtual
 "Type mcd (multicursor delete) to remove all virtual carets
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"======================================================================
 "COMMAND MODE
-"""""""""""""
+"----------------------------------------------------------------------
+"============
 " Moving a set of lines using the :m command
 " '<,>'normal I//  : insert // at the beginning of a range of lines
 " '<,>'normal A//  : append // at the end of a range of lines
@@ -269,11 +329,12 @@
 " :norm . : repeat the last normal mode command
 " use * to search for the word under the cursor, and
 " use :%s//newword/g to replace all occurrences of the word under the cursor with newword
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"----------------------------------------------------------------------
+"====================================================================
 "o	Open files, directories and bookmarks	g:NERDTreeMapActivateNode
 "go	Open selected file, but leave cursor in the NERDTree	g:NERDTreeMapPreview
 "t	Open selected node/bookmark in a new tab	g:NERDTreeMapOpenInTab
@@ -299,40 +360,40 @@
 "d	Delete file or directory	g:NERDTreeMapDelete
 "n	Create File	g:NERDTreeMapNewFile
 "N	Create Directory	g:NERDTreeMapNewDir
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "QUICKSCOPE
-"""""""""""
+"----------------------------------------------------------------------
 "Normally the { and } motions only match completely empty lines. With this plugin lines that only contain whitespace are also matched.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "COMENTARY
-""""""""""
+"----------------------------------------------------------------------
 "set comentary 使用技巧: gcat 选中代码块，然后gc注释代码块,gc取消注释代码块
 "set comentary 使用技巧: gcc 注释当前行,gc取消注释当前行
 "set comentary 使用技巧: gcap 注释当前段落,gc取消注释当前段落
 "set comentary 使用技巧: gcae 注释整个文件,gc取消注释整个文件
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "ARGTEXTOBJ
-"""""""""""
+"----------------------------------------------------------------------
 "That is, such as 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument).
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "INSERT MODE OR BASH SHELL
-""""""""""""""""""""""""""
+"----------------------------------------------------------------------
 "<c-h> to delete the previous character
 "<c-w> to delete the word before the cursor
 "<c-u> to delete the line from the cursor to the beginning of the line
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "PRACTICAL VIM
-""""""""""""""
+"----------------------------------------------------------------------
 " use dw. other than d2w
 " use 2dw. other than d3w
 " use daw to delete a word other than dbx bdw
@@ -343,29 +404,30 @@
 " use mM `M to mark a global position and go back to it
 "use df<space> to delete to the first space
 "use cgnJSON<ESC> to change the next JSON ,and use . to change the next one.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"use dgn to delete the next JSON
+"=====================================================================
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "SEARCH MODE
-""""""""""""
+"----------------------------------------------------------------------
 " use /lang/e to search for lang and go to the end of the word
 "example:
 "aim to learn a new programming lang each year
 "which lang did you pick up last year:
 "which langs would you like to learn this year:
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "TEXTOBJ-ENTIRE
-"""""""""""""""
+"----------------------------------------------------------------------
 "difference between ae and ie : ie exclude empty lines of the leading and trailing
 "tips:gcae: comment the entire file
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "EXCHANGE
-"""""""""
+"----------------------------------------------------------------------
 "假设你想要替换一个段落中的某个词语 "oldword" 为 "newword"：
 "首先，将 "newword" 复制到寄存器中。将光标放到 "newword" 上，然后输入 yiw。
 "HH然后，移动光标到 "oldword" 上，并输入 griw。这会用 "newword" 替换 "oldword"。
@@ -377,11 +439,11 @@
 "将光标移动到 "bar" 上，再次输入 cxiw，"foo" 和 "bar" 的位置就会交换。用 .  重复键就可以重复这个操作。
 "如果你想要交换两个tag的位置，可以使用cxat
 "如果你想要交换两个句子的位置，可以使用cxx
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "SURROUND
-"""""""""
+"----------------------------------------------------------------------
 "ysiw[：将光标所在的单词用中括号[]环绕。
 "cs"{：将光标所在位置的一对双引号更改为大括号{}。
 "ds)：删除光标所在位置的一对圆括号()。
@@ -394,23 +456,23 @@
 "hr= "dic.form" - sum 如果是带.的  用ysiW 或者
 "或者 viW S"
 " example  New york : vee S"  输入双引号
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "ACEJUMP
-""""""""
+"----------------------------------------------------------------------
 "Press the keyboard shortcut for AceAction (Ctrl+; by default) to activate AceJump,Press the AceJump shortcut a second time to activate Declaration Mode, which is equivalent to the Navigate To action in the IDE. Press the AceJump shortcut three times before completing a tag to activate Target Mode. Once Target Mode is activated, jumping to a tag will select an entire word
 "<c-s-;> :AceJump shortcut for Line Mode(Ctrl+Shift+; by default), to target the beginning, first non-whitespace, and last character of every line in the editor). Then jump to one by completing the tag.
 "<c-a-;>: Target Mode can also be activated directly by pressing the shortcut for AceTargetAction (Ctrl+Alt+; by default).
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 " <c-m> minimize the current window
-"""""""""""""""""""""""""""""""""""
+"----------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "MACRO MODE
-"""""""""""
+"----------------------------------------------------------------------
 "qq            : record keystrokes to register q
 "your commands
 "q             : quit recording
@@ -419,45 +481,44 @@
 "22@q
 ":'<,'>normal @q : execute commands on a range of lines
 "x= "+a+",+b+,+c+,+d+,+e+,+f+,+g+,+h+,+i+,+j+,+k+,+l+,+m+,+n+,+o+,+p+,+q+,+r+,+s+,+t+,+u+,+v+,+w+,+x+,+y+,+z+
-"""""""""""""""
+"==============
 "serial numbers
-"""""""""""""""
+"==============
 "one  to 1)one
 "two   to 2)two
 "three   to 3)three
 "four     to 4)four
 ":let 1=1  qa I<c-r> = i<CR>)<ESC> :let i+=1 q  jVG :'<',>normal @q
-"""""""""""
+"==========
 "edit Macro
-"""""""""""
+"==========
 " :put a  : put a register a to the text
 " make some change and add back to register a use: "ay$
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "REGISTER MODE
-""""""""""""""
+"=============
 ":reg kisplay contents of allkregisters
 "1p      : paste from register 1
 "<C-r>0 paste the content of the register 0
 "procticcal Vim, by Drew Neil
 "Read Drew Neil's book,
 "_d: black hole register
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "INSERT MODE
-""""""""""""
+"===========
 "<C-r> = 7*22 <CR>  = 154 : insert 154
-""""""""""""""""""""""""""""""""""""""
+"=====================================
 " gi got to the last place you left insert mode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"=====================================================================
 let mapleader = " "
 set scrolloff=10
 set nu
@@ -475,11 +536,12 @@ set incsearch
 set noerrorbells
 set clipboard+=unnamed
 set clipboard=unnamedplus
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocursorline
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "PLUGINS
-""""""""
+"=======
 set textobj-entire
 set multiple-cursors
 set multicursor
@@ -492,50 +554,50 @@ set surround
 set exchange
 set ideajoin
 set ReplaceWithRegister
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "ARGTEXTOBJ
-"""""""""""
+"==========
 set argtextobj
 let g:argumentobject_force_toplevel = 1
 let g:argtextobj_pairs="[:],(:),<:>"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "MATCHIT
-""""""""
+"=======
 set matchit
 let b:matchit_ignorecase=1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "QUICKSCOPE
-"""""""""""
+"==========
 set quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_primary_color = '#ff0000'
 let g:qs_secondary_color = '#ff00ff'
 let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q']
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "HIGHLIGHTEDYANK
-""""""""""""""""
+"===============
 set highlightedyank
 let g:highlightedyank_highlight_color = "rgba(24, 241, 187)"
 let g:highlightedyank_highlight_duration = 800
 let g:highlightedyank_max_lines = 1000
 let g:highlightedyank_highlight_in_visual = 0
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "WHICH-KEY
-"""""""""
+"========
 "SETTINGS
-""""""""""
+"=========
 "set which-key
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_FontSize = 16
 let g:WhichKeyDesc_surround_y = "y 增加tag surround插件"
@@ -568,9 +630,9 @@ let g:WhichKeyDesc_GotoTest = "gt 在源代码和测试代码之间快速切换"
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>bm 显示书签工具窗口"
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>bb 显示书签工具窗口"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "CONFIGURATIONS
-"""""""""""""""
+"==============
 let g:WhichKeyDesc_leader = "<leader> Leader key"
 let g:WhichKeyDesc_leader_leader = "<leader><leader> Leader leader key"
 let g:WhichKeyDesc_easymotion_z = "<leader><leader>z easymotion-jumptoanywhere"
@@ -595,10 +657,10 @@ let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>ll 定位文件位�
 let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc 打开查找菜单"
 let g:WhichKeyDesc_FindOrFormat_Format = "<leader>ff 格式化代码"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
+"=====================================================================
 "🌍🌍🌍 No Leader Keymaps 🌍🌍🌍
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "--普通模式下使用回车键，向下/向上 增加一行
 nmap <CR> o<Esc>
 nmap <S-Enter> O<Esc>
@@ -637,9 +699,9 @@ nnoremap ]] :action MethodDown<cr>
 nmap gm <action>(MethodUp)
 nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "🌸🌸🌸 Easymotion 🌸🌸🌸
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "nmap s <Plug>(easymotion-s2)
 "nmap S <Action>(AceBackwardAction)
 
@@ -652,19 +714,17 @@ nmap <leader>dd <action>(ToggleDistractionFreeMode)
 nmap <leader>dz <action>(ToggleZenMode)
 nmap <leader>df <action>(ToggleFullScreen)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "CHARACTER MANIPULATION
-"""""""""""""""""""""""
+"======================
 "Toggle case and start typing. E.g. <leader>iget: property -> getProperty
 nmap <leader>i ~hi
 nmap <leader>J Ji <ESC>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "COPY AND PASTE AND REPLACE
-"""""""""""""""
-"Yank to the last character of the Line
-nnoremap Y yg_
+"==============
 "gR replace 当前字符到行尾
 nmap gR gr$
 nnoremap y_ y^
@@ -675,18 +735,18 @@ nnoremap c_ c^
 "重放EX命令
 nnoremap <leader>. @:
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 nnoremap <Leader>sr :%s///gcI<left><left><left><left><left>
 vnoremap sr y:%s///gcI<left><left><left><left><left><C-r>0<right>
 "选中单词后,ss 会快速跳到下一个相同的单词
 vnoremap ss y/<C-r>0<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 nnoremap U <C-r>
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "e: Extract
 "extract method/function 将选中的代码片段提取为一个独立的方法(Ctrl + Alt + M)
 vmap <leader>em <action>(ExtractMethod)
@@ -854,7 +914,8 @@ nmap <tab>q <Action>(GotoImplementation)
 nmap <leader>w [w
 nmap <leader>b [b
 nmap <leader>e ]w
-nmap <leader>ge ]b
+"nmap <leader>ge ]b
+nmap <leader>ge :action GotoNextError<CR>
 " let g:camelcasemotion_key='<leader>'
 " set CamelCaseMotion
 
@@ -882,6 +943,7 @@ nnoremap p p`]
 "Y yank whole line by default
 vnoremap y ygv<Esc>$
 nnoremap Y y$
+"xnoremap Y <Esc>y$gv
 
 "在普通模式下，按 x 删除单个字符，不放入默认寄存器
 "在普通模式下，按 x 删除单个字符，不放入默认寄存
@@ -934,12 +996,12 @@ nmap <leader>be <Action>(EditBookmark)
 nmap <leader>bn <Action>(GotoNextBookmark)
 
 
-noremap <UP> <nop>
-noremap <DOWN> <nop>
+noremap <UP> 10k
+noremap <DOWN> 10j
 noremap <LEFT> :action PreviousTab<CR>
 noremap <RIGHT> :action NextTab<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 " Center screen when moving up and down
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
@@ -951,7 +1013,7 @@ nnoremap <c-i> :action Forward<cr>
 " but preserve ideavim defaults
 nnoremap g<c-o> <c-o>
 nnoremap g<c-i> <c-i>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 
 "nmap <s-9> 0
 "nmap <s-0> $
@@ -962,9 +1024,9 @@ nmap <leader>ft <action>(FindInPath)
 "========== n ==========
 nmap <leader>nd <action>(NewDir)
 nmap <leader>nf <action>(NewFile)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=====================================================================
 "IDEA SHORTCUTS
-"""""""""""""""
+"==============
 " reactivate some IDEA shortcuts
 :map <leader>1 <Action>(Run)
 :map <leader>2 <Action>(Debug)
@@ -977,8 +1039,8 @@ nmap <leader>nf <action>(NewFile)
 " other things
 :map <leader>an <Action>(Annotate)
 :map <leader>tw <Action>(ActivateProjectToolWindow)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=======================================================
+"=====================================================================
 :map <leader>er <Action>(QuickJavaDoc)
 :map <leader>ee <Action>(ShowErrorDescription)
 :map <leader>hh <Action>(QuickImplementations)
@@ -1079,6 +1141,9 @@ xnoremap & :&&<CR>
 "emulate ctags
 nmap <c-\>s :action CallHierarchy<CR>
 
+"remap <c-q> to <c-v>
+nnoremap <c-q> <c-v>
+
 " toggle line number relative
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -1137,3 +1202,12 @@ endfunction
 
 nnoremap ! :call Invert(0)<CR>
 vnoremap ! :<C-u>call Invert(1)<CR>
+
+function! CursorLineToggle()
+if(&cursorline)
+set nocursorline
+else
+set cursorline
+endif
+endfunction
+nnoremap <F4> :call CursorLineToggle()<CR>
