@@ -1,4 +1,187 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"GLOBAL COMMAND
+"""""""""""""""
+":g/re/d  :在全局删除匹配的行,re是正则表达式
+"/\v\<\/?\w+\>   ":在全局匹配html标签
+":g//d  :删除所有空行
+":v/href/d :删除所有不含href的行
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"SUBSTITUDE MODE
+""""""""""""""""
+":[rang]s[ubstitute]/{pattern}/{string}/[flags]
+" flags: g - global, c - confirm, n - number of matches,I - ignore case
+"\r :插入一个换行符
+"\t :插入一个制表符
+"\\ :插入一个反斜杠
+"\1 :插入第一个子模式匹配的内容
+"\2 :插入第二个子模式匹配的内容
+"\0 :插入匹配模式的所有内容
+"&  :插入匹配模式的所有内容
+"\s  :差入一个空白字符
+"~  :使用上一次调用:substitude的字符串
+"""""""""""""""""
+"/Pragmatic\ze Vim：匹配 Pragmatic，但仅在它后面紧跟 Vim 的情况下才匹配。
+"
+"这里的 \ze 表示匹配的结束位置在 Vim 之前，因此最终的匹配结果是 Pragmatic，但要求后面有 Vim 才能匹配成功。
+"/hello\zs world：匹配 world，但仅在它前面紧跟 hello 的情况下才匹配。
+"
+"这里的 \zs 表示匹配的起始位置在 world 之前，因此最终的匹配结果是 world，但要求前面有 hello 才能匹配成功。
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"VIM REGULAR EXPRESSIONS
+""""""""""""""""""""""""
+" /\v :for very macgic regexmode
+""""""""""""""""""""""""
+"body   {color:#3c3c3c;}
+"a   {color:#0000EE;}
+"strong   {color:#000;}
+"/\v#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})
+"shorter version: /\v#(\x{6}|\x{3})
+"use \x :to substitude [0-9a-fA-F]
+"/\v#(\x{6}|\x{3})  :to match 6 or 3 hex digits in a row ,eg: #000 #fff #333 #ff00ff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"USE V TO ACTIVATE VERY MAGIC SEARCH
+""""""""""""""""""""""""""""""""""""
+"The N key searches backward...
+"...thev pattern switch(a.k.a.very magic search)...
+"use /aka will be match too much unwanted characters
+""""""""""""""""""""""""""""""""""""
+"USE V TO ACTIVATE VERY NOMAGIC SEARCH
+"/\Va.k.a
+""""""""""""""""""""""""""""""""""""""""""""
+"THIS REGEX IS USE TO CLEAN THE REPEAT WORDS
+"/\v<(\w+)\_s+\1+> : to match the word and the _s+ and the word again
+""""""""""""""""""""""""""""""""""""""""""
+"gUgn : to make the first match upper case
+"/\vX(ht)?ml\C<CR> : to match html or xhtml
+""""""""""""""""""""""""""""""""""""
+"X：匹配 XhtmlDocument 和 XhtmlTag 中的 X。
+"(ht)?：匹配 Xhtml 中的 ht，或者可以忽略 ht，直接匹配 Xml（如果只是 html）。
+"ml：匹配 ml。
+"\C：忽略大小写，所以无论是 Xhtml 还是 XHTML 都能匹配。
+""""""""""""""""""""""""""""""""""""
+"class XhtmlDocument < XmlDocument;end
+"class XhtmlTag < XmlTag;end
+"""""""""
+"example:
+"""""""""""""""""""""""""""""""""""""""""""
+"This string contains a'quoted' word.
+"This string contains 'two' quoted 'words'.
+"This 'string doesn't make things easy'.
+"""""""""""""""""""""""""""""""""""""""""""
+"regex1: /\v'.+' : match the quoted word will show three matches which is : 'quoted', 'two' quoted 'words', 'string doesn't make things easy'
+"regex2: /\v'[^']+': match the quoted word will show two matches which is : 'quoted', 'two' quoted 'words',and  'string doesn'
+"regex3:/\v'([^']|'\w)+': match the quoted word will show two matches which is : 'quoted', 'two'  'words',and  'string doesn't make things easy'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"正则表达式 1：/\v'.+'
+"分析
+"\v：启用 very magic 模式，简化正则表达式语法。
+"'.+'：匹配以单引号 ' 开头，至少包含一个字符的内容，并以单引号 ' 结尾。
+".：匹配任意字符。
+"+：匹配前一个字符（即 .）一次或多次。
+"匹配结果
+"这个表达式会匹配尽可能长的内容，因为 .+ 是贪婪匹配。所以它会匹配所有包含在单引号中的内容，甚至包含中间的单引号。
+"
+"匹配 1：'quoted'
+"匹配 2：'two' quoted 'words'
+"匹配 3：'string doesn't make things easy'
+"解释
+"'.+' 使用了贪婪匹配，因此会匹配尽可能多的字符，包括中间的单引号。
+"这导致在第二行中，'two' quoted 'words' 被视为一个完整的匹配，因为它从第一个 ' 到最后一个 ' 之间的所有内容都被包含进来了。
+"正则表达式 2：/\v'[^']+'
+"分析
+"\v：启用 very magic 模式。
+"'[^']+'：匹配以单引号 ' 开头，然后是一段不包含单引号的字符，最后再以单引号 ' 结尾。
+"[^']：表示不包含单引号的任意字符。
+"+：匹配前一个字符一次或多次。
+"匹配结果
+"这个表达式会匹配单引号包裹的内容，并且内容中不能包含任何单引号字符。
+"
+"匹配 1：'quoted'
+"匹配 2：'two'
+"匹配 3：'words'
+"匹配 4：'string doesn'
+"解释
+"因为 [^'] 表示不包含单引号的字符，所以当引号内有单引号时（例如 string doesn't make things easy），它只匹配到前面不包含单引号的部分。
+"在第三行中，它只匹配到了 'string doesn'，因为在此之后遇到了一个单引号，导致匹配结束。
+"正则表达式 3：/\v'([^']|'\w)+'
+"分析
+"\v：启用 very magic 模式。
+"'([^']|'\w)+'：
+"[^']：匹配不包含单引号的任意字符。
+"\|：逻辑或，用于选择不同的匹配条件。
+"'\w：匹配一个单引号 '，后面紧跟一个单词字符（字母、数字或下划线）。
+"+：匹配前面的模式一次或多次。
+"匹配结果
+"这个表达式的匹配规则更复杂，允许匹配内容中带有单引号，但这些单引号后必须跟着一个单词字符（字母、数字或下划线），使得它更适合处理包含缩写或所有格的单词。
+"
+"匹配 1：'quoted'
+"匹配 2：'two'
+"匹配 3：'words'
+"匹配 4：'string doesn't make things easy'
+"解释
+"由于 ([^']|'\w)+ 的设计，这个正则表达式允许在匹配内容中出现 '\w 形式的单引号字符，因此在第三行的 string doesn't make things easy 中，整个引号内容都被匹配到。
+"这个表达式更适合处理带有缩写或所有格的单引号内容，例如 doesn't，因为它会将 ' 后面的字母作为合法的一部分。
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"正则表达式： :/\v\<\/?\w+\>
+"\v：启用 very magic 模式，使得大多数特殊字符可以不用转义。
+"<：匹配一个 左尖括号 <，用于定位 HTML 或 XML 标签的开始。
+"\/?：匹配一个可选的 斜杠 /，表示标签可以是闭合标签（例如 </tag>）或起始标签（例如 <tag>）。
+"? 表示前面的斜杠 / 是可选的，这样可以匹配没有 / 的开标签和有 / 的闭标签。
+"\w+：匹配一个或多个单词字符（字母、数字或下划线），用于匹配标签的名称部分。
+"例如，可以匹配 div、a、span 等标签名。
+">：匹配一个 右尖括号 >，表示标签的结束。
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"MULTIPLE-CURSORS
+"""""""""""""""""
+"fp<C-N><C-N>cname to select next occurance of word under cursor and change it to name
+"Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+"说明： 在普通模式下，按下 Ctrl+n 将会选中整个当前单词，并将光标移动到文档中下一个相同单词的位置。
+"说明： 在可视模式下，按下 Ctrl+n 也会将光标移动到下一个相同的整个单词。
+"hello world
+"helloii world
+"testing multiple cursors in IdeaVim
+"hello world
+"try multiple cursors
+"hello world
+"multiple examples to try
+"hello NextWholeOccurrence 是完全匹配,而 NextOccurrence 是部分匹配
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"ADD A CURSOR TO EACH LINE OF YOUR VISUAL SELECTION
+" vip <C-N> <S-j> : change the whole paragraph to a single line
+"""""""""""""""""""""""""""""""
+"separate lines with a single o
+"vip<C-N>o
+"""""""""""""""""""""""""
+"separate line with c<CR>
+"""""""""""""""""""""""""
+"v<C-N>c<CR>c<CR>
+"add '"' to
+"""""""""""
+"TIPS:
+"To delete blank lines between lines, use the following command:
+"visual select code block you want to clean, then press <C-N> and <BS> to delete the blank lines.<CR>"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"VIMMULTICURSOR
+"""""""""""""""
+"Usage
+"Type mc (multicursor) and a vim command to create cursors
+"Type ms (multiselect) and a vim command to select multiple items
+"If you previously selected some text, then the commands work only in the selected text
+"Supported vim commands: /, f, t, w, W, b, B, e, E
+"Type mca (multicursor add) to add (or remove) a virtual caret
+"Type mci (multicursor insert) to insert real carets instead of virtual
+"Type mcd (multicursor delete) to remove all virtual carets
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "COMMAND MODE
 """""""""""""
 " Moving a set of lines using the :m command
@@ -16,10 +199,12 @@
 " leader. :repeat the last command
 " :normal . : repeat the last normal mode command
 " :norm . : repeat the last normal mode command
+" use * to search for the word under the cursor, and
+" use :%s//newword/g to replace all occurrences of the word under the cursor with newword
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"🌸🌸🌸 NERDTree 🌸🌸🌸
+"NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "o	Open files, directories and bookmarks	g:NERDTreeMapActivateNode
 "go	Open selected file, but leave cursor in the NERDTree	g:NERDTreeMapPreview
@@ -88,6 +273,19 @@
 "`` : go back to the last position
 "`. : go to the last change
 " use mM `M to mark a global position and go back to it
+"use df<space> to delete to the first space
+"use cgnJSON<ESC> to change the next JSON ,and use . to change the next one.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"SEARCH MODE
+""""""""""""
+" use /lang/e to search for lang and go to the end of the word
+"example:
+"aim to learn a new programming lang each year
+"which lang did you pick up last year:
+"which langs would you like to learn this year:
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -144,18 +342,35 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "MACRO MODE
-"""""""
-"qa            : record keystrokes to register a
+"""""""""""
+"qq            : record keystrokes to register q
 "your commands
 "q             : quit recording
-"@a            : execute commands again
+"@q            : execute commands again
 "@@            : repeat
+"22@q
+":'<,'>normal @q : execute commands on a range of lines
+"x= "+a+",+b+,+c+,+d+,+e+,+f+,+g+,+h+,+i+,+j+,+k+,+l+,+m+,+n+,+o+,+p+,+q+,+r+,+s+,+t+,+u+,+v+,+w+,+x+,+y+,+z+
+"""""""""""""""
+"serial numbers
+"""""""""""""""
+"one  to 1)one
+"two   to 2)two
+"three   to 3)three
+"four     to 4)four
+":let 1=1  qa I<c-r> = i<CR>)<ESC> :let i+=1 q  jVG :'<',>normal @q
+"""""""""""
+"edit Macro
+"""""""""""
+" :put a  : put a register a to the text
+" make some change and add back to register a use: "ay$
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "REGISTER MODE
-"""""""""
-":reg display contents of allkregisters
+""""""""""""""
+":reg kisplay contents of allkregisters
 "1p      : paste from register 1
 "<C-r>0 paste the content of the register 0
 "procticcal Vim, by Drew Neil
@@ -199,6 +414,7 @@ set clipboard=unnamedplus
 """"""""
 set textobj-entire
 set multiple-cursors
+set multicursor
 set commentary
 set vim-paragraph-motion
 set easymotion
@@ -250,7 +466,7 @@ let g:highlightedyank_highlight_in_visual = 0
 """""""""
 "SETTINGS
 """"""""""
-set which-key
+"set which-key
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_FontSize = 16
@@ -356,8 +572,8 @@ nmap gh gg<Action>(MethodDown)mxz<CR>5<C-y>`x
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "🌸🌸🌸 Easymotion 🌸🌸🌸
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap s <Plug>(easymotion-s2)
-nmap S <Action>(AceBackwardAction)
+"nmap s <Plug>(easymotion-s2)
+"nmap S <Action>(AceBackwardAction)
 
 nmap <leader>ca <action>(CloseAllEditors)
 nmap <leader>cd :action CloseEditor<CR>
@@ -542,24 +758,15 @@ nmap <leader><leader>N <Plug>(easymotion-vim-N)
 nmap <leader><leader>l <Plug>(easymotion-bd-fl)
 "映射C-H 为ide的替换功能
 nmap <C-H> :action Replace<CR>
-"==============================================
-"Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
-"说明： 在普通模式下，按下 Ctrl+n 将会选中整个当前单词，并将光标移动到文档中下一个相同单词的位置。
-"说明： 在可视模式下，按下 Ctrl+n 也会将光标移动到下一个相同的整个单词。
-"hello world
-"helloii world
-"testing multiple cursors in IdeaVim
-"hello world
-"try multiple cursors
-"hello world
-"multiple examples to try
-"hello NextWholeOccurrence 是完全匹配,而 NextOccurrence 是部分匹配
 nmap <C-n> <Plug>NextWholeOccurrence
+vmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
 nmap g<C-n> <Plug>NextOccurrence
 xmap g<C-n> <Plug>NextOccurrence
 xmap <C-x> <Plug>SkipOccurrence
+vmap <C-x> <Plug>SkipOccurrence
 xmap <C-p> <Plug>RemoveOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
 nmap <A-n> <Plug>AllWholeOccurrences
 xmap <A-n> <Plug>AllWholeOccurrences
 nmap g<A-n> <Plug>AllOccurrences
@@ -749,16 +956,13 @@ nnoremap <leader>gr :action Vcs.RollbackChangedLines<CR>
 nnoremap <leader>gss :action Git.Stash<CR>
 nnoremap <leader>gsu :action Git.Unstash<CR>
 nnoremap gD :action FindUsages<CR>
-nnoremap gE :action ReSharperGotoNextErrorInSolution<CR>
 nnoremap gb :action JumpToLastChange<CR>
-nnoremap ge :action GotoNextError<CR>
-nnoremap gn :action VcsShowNextChangeMarker<CR>
 nnoremap go :action GotoOverride<CR>
 nnoremap gr :action RecentFiles<CR>
 nnoremap gs :action Switcher<CR>
 nnoremap gtd :action GotoTypeDeclaration<CR>
 nnoremap gtt :action GotoTest<CR>
-nnoremap gu :action FindUsages<CR>
+"nnoremap gu :action FindUsages<CR>
 vnoremap gD :action FindUsages<CR>
 vnoremap gtd :action GotoTypeDeclaration<CR>
 vnoremap gtt :action GotoTest<CR>
@@ -796,6 +1000,13 @@ vnoremap <leader>mrec    <Esc>:action IntroduceConstant<CR>
 "noremap <Leader>ef :action IntroduceField<CR>
 nnoremap <leader>mref    :action IntroduceField<CR>
 vnoremap <leader>mref    <Esc>:action IntroduceField<CR>
+
+"remap * function when text selected
+vnoremap * y <Esc>/<C-r>0<CR>
+
+"remap & in normal mode to repeat last substitution
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
 
 " toggle line number relative
 function! NumberToggle()
