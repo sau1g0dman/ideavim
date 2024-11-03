@@ -1,14 +1,21 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"GLOBAL COMMAND
+"GLOBAL COMMAND--------------------------------------------------------
 """""""""""""""
 ":g/re/d  :在全局删除匹配的行,re是正则表达式
 "/\v\<\/?\w+\>   ":在全局匹配html标签
 ":g//d  :删除所有空行
+""""""""""""""""""""""""""""""
+"COLLECT TODOS TO THE REGISTER-----------------------------------------
+":g/someword/yank A  :在全局匹配someword并且复制到寄存器A
+""""""""""""""""""""""""""""""""""
+"MOVE THE TODOS TO THE END OF FILE-------------------------------------
+":g/someword/t$  :在全局匹配someword并且移动到文件末尾
+""""""""""""""""""""""""""""""""""""""""""""
 ":v/href/d :删除所有不含href的行
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"SUBSTITUDE MODE
+"SUBSTITUDE MODE-------------------------------------------------------
 """"""""""""""""
 ":[rang]s[ubstitute]/{pattern}/{string}/[flags]
 " flags: g - global, c - confirm, n - number of matches,I - ignore case
@@ -1007,6 +1014,9 @@ vnoremap * y <Esc>/<C-r>0<CR>
 "remap & in normal mode to repeat last substitution
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
+
+"emulate ctags
+nmap <c-\>s :action CallHierarchy<CR>
 
 " toggle line number relative
 function! NumberToggle()
