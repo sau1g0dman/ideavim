@@ -520,7 +520,8 @@
 
 "=====================================================================
 let mapleader = " "
-set scrolloff=10
+set scrolloff=5
+set sidescrolloff=1
 set nu
 set linenumber
 "set relativenumber
@@ -537,12 +538,23 @@ set noerrorbells
 set clipboard+=unnamed
 set clipboard=unnamedplus
 set nocursorline
+set keymodel=startsel,stopsel
+set wrap
+set breakindent
+set ideaglobalmode
+set idearefactormode=select
+set ideajoin
+set whichwrap=b,s,<,>,[,]
+set virtualedit=onemore
+set textwidth=80 colorcolumn=80
+set viminfo='100,<1000,s100
 "=====================================================================
 
 "=====================================================================
 "PLUGINS
 "=======
 set textobj-entire
+set textobj-indent
 set multiple-cursors
 set multicursor
 set commentary
@@ -552,7 +564,6 @@ set notimeout
 set nerdtree
 set surround
 set exchange
-set ideajoin
 set ReplaceWithRegister
 "=====================================================================
 
@@ -998,8 +1009,8 @@ nmap <leader>bn <Action>(GotoNextBookmark)
 
 noremap <UP> 10k
 noremap <DOWN> 10j
-noremap <LEFT> :action PreviousTab<CR>
-noremap <RIGHT> :action NextTab<CR>
+"noremap <LEFT> :action PreviousTab<CR>
+"noremap <RIGHT> :action NextTab<CR>
 
 "=====================================================================
 " Center screen when moving up and down
