@@ -546,7 +546,8 @@ set idearefactormode=select
 set ideajoin
 set whichwrap=b,s,<,>,[,]
 set virtualedit=onemore
-set textwidth=80 colorcolumn=80
+set textwidth=100
+set colorcolumn=100
 set viminfo='100,<1000,s100
 "=====================================================================
 
@@ -692,8 +693,11 @@ nnoremap <A-j> <C-w>j
 nnoremap <TAB> :action NextTab<CR>
 nnoremap <s-TAB> :action PreviousTab<CR>
 
-nmap <Home> ^
-imap <Home> ^
+nmap <HOME> ^
+imap <HOME> ^
+noremap <INSERT> A
+noremap <PAGEUP> {
+noremap <PAGEDOWN> }
 
 nmap H h
 nmap L l
@@ -1007,10 +1011,10 @@ nmap <leader>be <Action>(EditBookmark)
 nmap <leader>bn <Action>(GotoNextBookmark)
 
 
-noremap <UP> 10k
-noremap <DOWN> 10j
-"noremap <LEFT> :action PreviousTab<CR>
-"noremap <RIGHT> :action NextTab<CR>
+noremap <UP> k
+noremap <DOWN> j
+noremap <LEFT> ^
+noremap <RIGHT> g_
 
 "=====================================================================
 " Center screen when moving up and down
